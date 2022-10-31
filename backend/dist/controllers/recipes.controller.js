@@ -14,6 +14,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getAllRecipes = exports.deleteRecipe = exports.updateRecipe = exports.createRecipe = exports.getRecipe = exports.getRecipes = void 0;
 const recipes_1 = __importDefault(require("../models/recipes"));
+const user_1 = __importDefault(require("../models/user"));
+const getFullName = (user) => __awaiter(void 0, void 0, void 0, function* () {
+    const usuario = yield user_1.default.findOne({ username: user });
+    return usuario === null || usuario === void 0 ? void 0 : usuario.full_name;
+});
 const getRecipes = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { user } = req.params;
     const tasks = yield recipes_1.default.find({ user: user });
@@ -65,7 +70,8 @@ const deleteRecipe = (req, res) => __awaiter(void 0, void 0, void 0, function* (
 });
 exports.deleteRecipe = deleteRecipe;
 // TODO mostrar todas las recetas
-const getAllRecipes = (req, res) => {
-    return res.json({ msg: "all recipes" });
-};
+const getAllRecipes = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const recipes = yield recipes_1.default.find();
+    return res.json(recipes);
+});
 exports.getAllRecipes = getAllRecipes;
