@@ -11,7 +11,9 @@ function createToken(user: IUser) {
 export const signUp = async (req: Request, res: Response): Promise<Response> => {
 	console.log(req.body);
 	if (!req.body.username || !req.body.password || !req.body.full_name) {
-		return res.status(400).json({ msg: "Please, send your email and password" });
+		return res
+			.status(400)
+			.json({ msg: "Please, send your username and password" });
 	}
 	const user = await User.findOne({ username: req.body.username });
 	if (user) {
