@@ -8,7 +8,7 @@ import recipesRoutes from "./routes/recipes.routes";
 const app = express();
 
 // settings
-app.set("port", process.env.PORT || 3000);
+app.set("port", process.env.PORT || 4000);
 
 // middlewares
 app.use(morgan("dev"));

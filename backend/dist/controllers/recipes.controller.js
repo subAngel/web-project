@@ -65,7 +65,8 @@ const deleteRecipe = (req, res) => __awaiter(void 0, void 0, void 0, function* (
 });
 exports.deleteRecipe = deleteRecipe;
 // TODO mostrar todas las recetas
-const getAllRecipes = (req, res) => {
-    return res.json({ msg: "all recipes" });
-};
+const getAllRecipes = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const tasks = yield recipes_1.default.find();
+    return res.status(200).json(tasks);
+});
 exports.getAllRecipes = getAllRecipes;
