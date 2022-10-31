@@ -1,4 +1,6 @@
 import { model, Schema, Document } from "mongoose";
+import user from "./user";
+import User from "./user";
 
 export interface IRecipe extends Document {
 	recipe_name: string;

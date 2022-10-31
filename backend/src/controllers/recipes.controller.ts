@@ -1,5 +1,11 @@
 import { Request, Response } from "express";
 import Recipe, { IRecipe } from "../models/recipes";
+import User, { IUser } from "../models/user";
+
+const getFullName = async (user: String) => {
+	const usuario = await User.findOne({ username: user });
+	return usuario?.full_name;
+};
 
 export const getRecipes = async (req: Request, res: Response) => {
 	const { user } = req.params;
@@ -67,6 +73,7 @@ export const deleteRecipe = async (req: Request, res: Response) => {
 };
 
 // TODO mostrar todas las recetas
-export const getAllRecipes = (req: Request, res: Response) => {
-	return res.json({ msg: "all recipes" });
+export const getAllRecipes = async (req: Request, res: Response) => {
+	const recipes = await Recipe.find();
+	return res.json(recipes);
 };
