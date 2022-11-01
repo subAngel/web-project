@@ -2,17 +2,32 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 // import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 
-import Login from "./pages/Login";
+import LoginForm from "./pages/LoginForm";
+import SignUpForm from "./pages/SignUpForm";
 import Home from "./pages/Home";
+import { BubblyContainer, BubblyLink } from "react-bubbly-transitions";
 
 ReactDOM.render(
 	<React.StrictMode>
 		<BrowserRouter>
+			<BubblyContainer />
 			<Routes>
-				<Route path="/login" element={<Login />} />
+				{/* <Route
+					path="/"
+					element={
+						<>
+							<BubblyLink to="/">Home</BubblyLink>
+							<BubblyLink to="/login">Iniciar Sesion</BubblyLink>
+							<BubblyLink to="/signup">Registrarse</BubblyLink>
+						</>
+					}
+				></Route> */}
+				<Route path="/login" element={<LoginForm />} />
+				<Route path="/signup" element={<SignUpForm />} />
 				<Route path="/" element={<Home />} />
+				<Route path="*" element={<NotFound />} />
 			</Routes>
 		</BrowserRouter>
 	</React.StrictMode>,
@@ -23,3 +38,6 @@ ReactDOM.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 // reportWebVitals();
+function NotFound() {
+	return <>Ha llegado a una pagina que no existe</>;
+}

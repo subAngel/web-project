@@ -1,4 +1,6 @@
 import React from "react";
+import { BubblyLink } from "react-bubbly-transitions";
+import { Link } from "react-router-dom";
 
 function SignUp() {
 	return (
@@ -6,9 +8,14 @@ function SignUp() {
 			<div className="welcome-back">
 				<div className="message">
 					<h1>Bienvenido</h1>
-					<img src="../../public/recetario.png" alt="" />
+					<img
+						src="https://cdn-icons-png.flaticon.com/512/683/683488.png"
+						alt="Imagen de un recetario"
+					/>
 					<p>Si ya tienes una cuenta por favor inicia sesion</p>
-					<button className="sign-up-btn">Iniciar sesion</button>
+					<button className="sign-up-btn">
+						<BubblyLink to="/login">Iniciar Sesion</BubblyLink>
+					</button>
 				</div>
 			</div>
 			<form className="formulario">

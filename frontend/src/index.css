@@ -1,13 +1,49 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+		"Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+		sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+/* wave link styles */
+body .react-bubbly-transitions__bubbly-link {
+	padding: 0;
+	outline: none;
+}
+@keyframes in-keyframes {
+	0% {
+		opacity: 0;
+		translate: 0 100%;
+	}
+	100% {
+		opacity: 1;
+		translate: 0 0;
+	}
+}
+
+.animate-in {
+	animation-name: in-keyframes;
+	animation-duration: 0.5s;
+	animation-fill-mode: both;
+}
+
+body .react-bubbly-transitions__bubbly-link.active {
+	position: relative;
+	color: #ffb04f;
+}
+
+body .react-bubbly-transitions__bubbly-link.active::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: 2px;
+	border-radius: 3px;
+	background: #fdbc44;
 }
