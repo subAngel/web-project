@@ -11,7 +11,7 @@ const recipes_routes_1 = __importDefault(require("./routes/recipes.routes"));
 // initializations
 const app = (0, express_1.default)();
 // settings
-app.set("port", process.env.PORT || 3000);
+app.set("port", process.env.PORT || 4000);
 // middlewares
 app.use((0, morgan_1.default)("dev"));
 app.use(express_1.default.json());
