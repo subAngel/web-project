@@ -1,5 +1,4 @@
 import React from "react";
-import LoginForm from "../components/LoginForm";
 import SignUpForm from "./SignUpForm";
 // import "./login.css";
 
@@ -9,8 +8,8 @@ import { BubblyLink } from "react-bubbly-transitions";
 
 const Login = () => {
 	return (
-		<>
-			<div className="container-form log-in">
+		<div className="main">
+			<div className="container-formulario log-in row">
 				<form className="formulario">
 					<h1 className="create-account">Iniciar Sesion</h1>
 					<input type="text" placeholder="Nombre de usuario" />
@@ -21,17 +20,18 @@ const Login = () => {
 					<div className="message">
 						<h1>Bienvenido</h1>
 						<img
+							className="img-form"
 							src="https://cdn-icons-png.flaticon.com/512/683/683488.png"
 							alt="Imagen de un recetario"
 						/>
 						<p>Si aun no tienes cuenta por favor registrese aqui</p>
-						<button className="log-in-btn">
-							<BubblyLink to="/signup">Registrarse</BubblyLink>
-						</button>
+						<BubblyLink to="/signup" className="log-in-btn ">
+							Registrarse
+						</BubblyLink>
 					</div>
 				</div>
 			</div>
-		</>
+		</div>
 	);
 };
 

@@ -1,21 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { BubblyLink } from "react-bubbly-transitions";
-import { Link } from "react-router-dom";
-import { Recipe } from "../recipes/Recipe";
-import { getRecipes } from "../recipes/recipeService";
+import { Recipe } from "../components/recipes/Recipe";
+import RecipeList from "../components/recipes/RecipeList";
+import { getRecipes } from "../components/recipes/recipeService";
 
 function Home() {
-	const [recipes, setRecipes] = useState<Recipe[]>([]);
-
-	const loadRecipes = async () => {
-		const res = await getRecipes();
-		setRecipes(res.data);
-	};
-
-	useEffect(() => {
-		loadRecipes();
-	}, []);
-
 	return (
 		<div>
 			<div className="principal inicio">
@@ -32,14 +21,7 @@ function Home() {
 			</div>
 			<h2>Todas las recetas</h2>
 			<div>
-				{recipes.map((recipe) => {
-					return (
-						<div>
-							<h2>{recipe.recipe_name}</h2>
-							<h4>{recipe.user}</h4>
-						</div>
-					);
-				})}
+				<RecipeList />
 			</div>
 		</div>
 	);

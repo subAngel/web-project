@@ -1,34 +1,30 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
-// import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
+import { BubblyContainer, BubblyLink } from "react-bubbly-transitions";
+
+import "./index.css";
+import "./pages/login.css";
+import "bootswatch/dist/morph/bootstrap.css";
 
 import LoginForm from "./pages/LoginForm";
 import SignUpForm from "./pages/SignUpForm";
 import Home from "./pages/Home";
-import { BubblyContainer, BubblyLink } from "react-bubbly-transitions";
+import NavBar from "./components/NavBar/NavBar";
 
 ReactDOM.render(
 	<React.StrictMode>
 		<BrowserRouter>
 			<BubblyContainer />
-			<Routes>
-				{/* <Route
-					path="/"
-					element={
-						<>
-							<BubblyLink to="/">Home</BubblyLink>
-							<BubblyLink to="/login">Iniciar Sesion</BubblyLink>
-							<BubblyLink to="/signup">Registrarse</BubblyLink>
-						</>
-					}
-				></Route> */}
-				<Route path="/login" element={<LoginForm />} />
-				<Route path="/signup" element={<SignUpForm />} />
-				<Route path="/" element={<Home />} />
-				<Route path="*" element={<NotFound />} />
-			</Routes>
+			<NavBar />
+			<div className="container">
+				<Routes>
+					<Route path="/login" element={<LoginForm />} />
+					<Route path="/signup" element={<SignUpForm />} />
+					<Route path="/" element={<Home />} />
+					<Route path="*" element={<NotFound />} />
+				</Routes>
+			</div>
 		</BrowserRouter>
 	</React.StrictMode>,
 	document.getElementById("root")
