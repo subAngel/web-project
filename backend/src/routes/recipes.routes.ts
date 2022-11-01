@@ -16,6 +16,6 @@ router.post("/:user/your-recipes", createRecipe);
 router.put("/:user/your-recipes/:id", updateRecipe);
 router.delete("/:user/your-recipes/:id", deleteRecipe);
 router.get("/:user/your-recipes/:id", getRecipe);
-router.get("/home", getAllRecipes);
+router.get("/all-recipes", getAllRecipes);
 
 export default router;
