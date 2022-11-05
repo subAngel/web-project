@@ -10,10 +10,8 @@ export default function Header({ heading, paragraph, linkName, linkUrl = "#" }) 
 					className="h-24 w-24"
 				/>
 			</div>
-			<h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-				{heading}
-			</h2>
-			<p className="text-center text-sm text-gray-600 mt-5">
+			<h2 className="mt-6 text-center text-3xl font-extrabold">{heading}</h2>
+			<p className="text-center text-sm mt-5">
 				{paragraph}{" "}
 				<Link
 					to={linkUrl}
