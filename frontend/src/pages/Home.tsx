@@ -3,10 +3,12 @@ import { BubblyLink } from "react-bubbly-transitions";
 import { Recipe } from "../components/recipes/Recipe";
 import RecipeList from "../components/recipes/RecipeList";
 import { getRecipes } from "../components/recipes/recipeService";
+import NavBar from "../components/NavBar/NavBar";
 
 function Home() {
 	return (
-		<div>
+		<div className="container">
+			<NavBar />
 			<div className="principal inicio">
 				<h1>Recetario Online</h1>
 				<img
