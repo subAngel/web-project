@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { loginFields } from "../constants/formFields";
+import FormAction from "./FormAction";
 import Input from "./Input";
 
 const fields = loginFields;
@@ -12,6 +13,13 @@ export default function Login() {
 	const handleChange = (e) => {
 		setLoginState({ ...loginState, [e.target.id]: e.target.value });
 	};
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		authenticateUser();
+	};
+
+	// TODO handle login api integration here
+	const authenticateUser = () => {};
 
 	return (
 		<form className="mt-8 space-y-6">
@@ -31,6 +39,7 @@ export default function Login() {
 					/>
 				))}
 			</div>
+			<FormAction handleSubmit={handleSubmit} text="Iniciar Sesion" />
 		</form>
 	);
 }
