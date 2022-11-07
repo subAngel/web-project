@@ -1,45 +1,102 @@
+import { Component } from "react";
+import Axios from "axios";
+import Cookies from "universal-cookie";
+import md5 from "md5";
 import { useState } from "react";
 import { loginFields } from "../constants/formFields";
-import FormAction from "./FormAction";
-import Input from "./Input";
 
 const fields = loginFields;
 let fieldsState = {};
 fields.forEach((field) => (fieldsState[field.id] = ""));
 
-export default function Login() {
-	const [loginState, setLoginState] = useState(fieldsState);
+const baseUrl = "http://localhost:4000/users";
+const cookies = new Cookies();
 
-	const handleChange = (e) => {
-		setLoginState({ ...loginState, [e.target.id]: e.target.value });
+class Login extends Component {
+	state = {
+		form: {
+			username: "",
+			password: "",
+		},
 	};
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		authenticateUser();
+
+	handleChange = async (e) => {
+		await this.setState({
+			form: {
+				...this.state.form,
+				[e.target.name]: e.target.value,
+			},
+		});
+		// console.log(this.state.form);
+	};
+
+	iniciarSesion = async () => {
+		await Axios
+			// .get(baseUrl)
+			.get(baseUrl, {
+				params: {
+					username: this.state.form.username,
+					password: md5(this.state.form.password),
+				},
+			})
+			.then((response) => {
+				console.log(response.data);
+			})
+			.then((res) => {
+				if (res.length > 0) {
+					var respuesta = res[0];
+					cookies.set("_id", respuesta._id, { path: "/" });
+					cookies.set("full_name", respuesta.full_name, { path: "/" });
+					cookies.set("username", respuesta.username, { path: "/" });
+					cookies.set("email", respuesta.email, { path: "/" });
+					alert(`Bienvenido ${respuesta.full_name}`);
+				} else {
+					alert("El usuario o la contraseña no son correctos");
+				}
+			})
+			.catch((error) => {
+				console.log(error);
+			});
 	};
 
 	// TODO handle login api integration here
-	const authenticateUser = () => {};
-
-	return (
-		<form className="mt-8 space-y-6">
-			<div className="-space-y-px">
-				{fields.map((field) => (
-					<Input
-						key={field.id}
-						handleChange={handleChange}
-						value={loginState[field.id]}
-						labelText={field.labelText}
-						labelFor={field.labelFor}
-						id={field.id}
-						name={field.name}
-						type={field.type}
-						isRequired={field.isRequired}
-						placeholder={field.placeholder}
-					/>
-				))}
-			</div>
-			<FormAction handleSubmit={handleSubmit} text="Iniciar Sesion" />
-		</form>
-	);
+	render() {
+		return (
+			<form className="mt-8 space-y-6">
+				<div className="-space-y-px">
+					<div>
+						<input
+							onChange={this.handleChange}
+							id="username"
+							name="username"
+							type="text"
+							autoComplete="off"
+							className="input input-bordered w-full"
+							placeholder="Nombre de usuario"
+						/>
+					</div>
+					<div>
+						<input
+							onChange={this.handleChange}
+							id="password"
+							name="password"
+							type="password"
+							autoComplete="off"
+							className="input input-bordered w-full mt-8"
+							placeholder="Contraseña"
+						/>
+					</div>
+				</div>
+				<button
+					className="btn w-full "
+					onClick={() => {
+						this.iniciarSesion();
+					}}
+				>
+					Iniciar Sesión
+				</button>
+			</form>
+		);
+	}
 }
+export default Login;

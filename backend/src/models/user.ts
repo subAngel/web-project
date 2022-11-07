@@ -1,6 +1,8 @@
 import { model, Schema, Document } from "mongoose";
 import recipeSchema, { IRecipe } from "./recipes";
 import bcrypt from "bcrypt";
+import md5 from "md5";
+
 import passport from "passport";
 
 export interface IUser extends Document {
@@ -33,20 +35,19 @@ const userSchema = new Schema({
 	},
 });
 
-userSchema.pre<IUser>("save", async function (next) {
+userSchema.pre<IUser>("save", function (next) {
 	const user = this;
 	if (!user.isModified("password")) return next();
 
-	const salt = await bcrypt.genSalt(10);
-	const hash = await bcrypt.hash(user.password, salt);
+	// const salt = await bcrypt.genSalt(10);
+	// const hash = await bcrypt.hash(user.password, salt);
+	const hash = md5(user.password);
 	user.password = hash;
 	next();
 });
 
-userSchema.methods.comparePassword = async function (
-	password: string
-): Promise<boolean> {
-	return await bcrypt.compare(password, this.password);
+userSchema.methods.comparePassword = function (password: string) {
+	return md5(password) === this.password;
 };
 
 export default model<IUser>("user", userSchema);

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.logIn = exports.signUp = void 0;
+exports.getUsuario = exports.getUsuarios = exports.logIn = exports.signUp = void 0;
 const user_1 = __importDefault(require("../models/user"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const config_1 = __importDefault(require("../config/config"));
@@ -54,3 +54,17 @@ const logIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     return res.status(400).json({ msg: "The username or password are incorrect" });
 });
 exports.logIn = logIn;
+const getUsuarios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const usuarios = yield user_1.default.find();
+    const object = Object.assign({}, usuarios);
+    console.log(usuarios);
+    return res.status(200).json(usuarios);
+});
+exports.getUsuarios = getUsuarios;
+const getUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    // const user_name = req.params.username
+    const usuario = yield user_1.default.findOne({ username: req.params.username });
+    console.log(usuario);
+    return res.status(200).json(usuario);
+});
+exports.getUsuario = getUsuario;
