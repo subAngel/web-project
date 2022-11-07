@@ -44,3 +44,17 @@ export const logIn = async (req: Request, res: Response) => {
 
 	return res.status(400).json({ msg: "The username or password are incorrect" });
 };
+
+export const getUsuarios = async (req: Request, res: Response) => {
+	const usuarios = await User.find();
+	const object = Object.assign({}, usuarios);
+	console.log(usuarios);
+	return res.status(200).json(usuarios);
+};
+
+export const getUsuario = async (req: Request, res: Response) => {
+	// const user_name = req.params.username
+	const usuario = await User.findOne({ username: req.params.username });
+	console.log(usuario);
+	return res.status(200).json(usuario);
+};

@@ -1,18 +1,20 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
 import LoginPage from "./pages/Login";
 import SignUpPage from "./pages/SignUp";
+import User from "./pages/User";
+
 function App() {
 	return (
-		<div className="min-h-full h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-			<div className="max-w-md w-full space-y-8">
-				<BrowserRouter>
-					<Routes>
-						<Route path="/signup" element={<SignUpPage />} />
-						<Route path="/login" element={<LoginPage />} />
-					</Routes>
-				</BrowserRouter>
-			</div>
-		</div>
+		<BrowserRouter>
+			<Routes>
+				<Route path="/signup" element={<SignUpPage />} />
+				<Route path="/login" element={<LoginPage />} />
+				<Route path="/" element={<Home />} />
+				{/* <Route path="/sesion" element={ <Sesion/>} /> */}
+				<Route path="/mis-recetas" element={<User />} />
+			</Routes>
+		</BrowserRouter>
 	);
 }
 
