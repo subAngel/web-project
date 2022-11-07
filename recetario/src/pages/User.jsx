@@ -37,7 +37,7 @@ class User extends Component {
 						</div>
 					</div>
 					<div className="navbar-center">
-						<a className="btn btn-ghost normal-case text-xl">
+						<a className="btn btn-primary normal-case text-xl">
 							Mis recetas
 						</a>
 					</div>

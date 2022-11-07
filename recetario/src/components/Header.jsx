@@ -4,7 +4,7 @@ export default function Header({ heading, paragraph, linkName, linkUrl = "#" }) 
 	return (
 		<div className="mb-10">
 			<div className="flex justify-center">
-				<Link>
+				<Link to="/">
 					<img
 						src="https://i.pinimg.com/originals/95/f3/4e/95f34e9bc588226a8c91a1be5bbebd67.png"
 						alt="Imagen del recetario"
