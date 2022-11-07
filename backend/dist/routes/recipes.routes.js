@@ -8,6 +8,7 @@ router.get("/all-recipes", recipes_controller_1.getAllRecipes);
 router.post("/:user/your-recipes", recipes_controller_1.createRecipe);
 router.put("/:user/your-recipes/:id", recipes_controller_1.updateRecipe);
 router.delete("/:user/your-recipes/:id", recipes_controller_1.deleteRecipe);
+// TODO arreglar este get
 router.get("/:user/your-recipes/:id", recipes_controller_1.getRecipe);
 router.get("/all-recipes", recipes_controller_1.getAllRecipes);
 exports.default = router;

@@ -30,7 +30,6 @@ const userSchema = new mongoose_1.Schema({
         type: String,
         required: false,
     },
-    city: String,
     password: {
         type: String,
         required: true,

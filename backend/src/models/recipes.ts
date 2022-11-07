@@ -24,7 +24,13 @@ const recipesSchema = new Schema({
 		type: String,
 		required: true,
 	},
-	photo: { type: Buffer },
+	photo: {
+		filename: { type: String },
+		path: { type: String },
+		originalname: { type: String },
+		mumetype: String,
+		size: { type: Number },
+	},
 	origin: String,
 	servings: {
 		type: Number,
