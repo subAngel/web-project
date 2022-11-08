@@ -6,6 +6,7 @@ export interface IRecipe extends Document {
 	recipe_name: string;
 	description: string;
 	user: string;
+	fullname_user: string;
 	photo: string;
 	origin: string;
 	servings: number;

@@ -22,10 +22,13 @@ class User extends Component {
 		}
 	};
 	render() {
-		console.log(cookies.get("_id"));
-		console.log(cookies.get("username"));
-		console.log(cookies.get("full_name"));
-		console.log(cookies.get("email"));
+		const usuario = {
+			_id: cookies.get("_id"),
+			username: cookies.get("username"),
+			full_name: cookies.get("full_name"),
+			email: cookies.get("email"),
+		};
+
 		return (
 			<div>
 				<div className="navbar bg-base-100">
@@ -49,6 +52,11 @@ class User extends Component {
 							Cerrar sesion
 						</button>
 					</div>
+				</div>
+				{/* //* DASHBOARD */}
+
+				<div>
+					<h2 className="text-center text-3xl">{usuario.full_name}</h2>
 				</div>
 			</div>
 		);

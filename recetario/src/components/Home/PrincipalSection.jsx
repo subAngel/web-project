@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const PrincipalSection = () => {
 	return (
-		<div className="h-screen relative flex flex-col-reverse py-16 lg:pt-0 lg:flex-col lg:pb-0">
+		<div className="hero h-screen relative flex flex-col-reverse py-16 lg:pt-0 lg:flex-col lg:pb-0">
 			<div className="inset-y-0 top-0 right-0 z-0 w-full max-w-xl px-4 mx-auto md:px-0 lg:pr-0 lg:mb-0 lg:mx-0 lg:w-7/12 lg:max-w-full lg:absolute xl:px-0">
 				<svg
 					className="absolute left-0 hidden h-full text-white transform -translate-x-1/2 lg:block"
@@ -20,6 +20,11 @@ const PrincipalSection = () => {
 			</div>
 			<div className="relative flex flex-col items-start w-full max-w-xl px-4 mx-auto md:px-0 lg:px-8 lg:max-w-screen-xl">
 				<div className="mb-16 lg:my-40 lg:max-w-lg lg:pr-5">
+					<img
+						src="https://i.pinimg.com/originals/95/f3/4e/95f34e9bc588226a8c91a1be5bbebd67.png"
+						alt="Imagen del recetario"
+						className="h-44 w-44 m-auto"
+					/>
 					<h2 className="mb-5 font-sans text-5xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none">
 						Bienvenido a tu recetario online
 					</h2>
@@ -33,7 +38,7 @@ const PrincipalSection = () => {
 					</p>
 					<div className="flex items-center mt-6">
 						<button className="btn btn-secondary">
-							<Link to="/login">Iniciar Sesion</Link>
+							<Link to="/login">Crea una receta</Link>
 						</button>
 						<button className="btn btn-terciary ml-20">
 							<Link to="/signup">Registrarse</Link>

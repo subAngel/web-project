@@ -25,6 +25,21 @@ export const signUp = async (req: Request, res: Response): Promise<Response> => 
 	return res.status(201).json(newUser);
 };
 
+export const createUser = async (req: Request, res: Response): Promise<Response> => {
+	const { username, password, full_name, email } = req.params;
+	if (!username || !password || !full_name || !email) {
+		return res.status(400).json({ msg: "Por favor rellene todos los campos" });
+	}
+	const user = await User.findOne({ username });
+	if (user) {
+		return res.status(400).json({ msg: "El usuario ya existe" });
+	}
+	const newUser = new User(req.params);
+	await newUser.save();
+
+	return res.status(201).json({ msg: "Usuario creado correctamente" });
+};
+
 // * entrar
 export const logIn = async (req: Request, res: Response) => {
 	if (!req.body.username || !req.body.password) {

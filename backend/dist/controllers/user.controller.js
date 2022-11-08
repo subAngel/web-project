@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUsuario = exports.getUsuarios = exports.logIn = exports.signUp = void 0;
+exports.getUsuario = exports.getUsuarios = exports.logIn = exports.createUser = exports.signUp = void 0;
 const user_1 = __importDefault(require("../models/user"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const config_1 = __importDefault(require("../config/config"));
@@ -36,6 +36,20 @@ const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     return res.status(201).json(newUser);
 });
 exports.signUp = signUp;
+const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { username, password, full_name, email } = req.params;
+    if (!username || !password || !full_name || !email) {
+        return res.status(400).json({ msg: "Por favor rellene todos los campos" });
+    }
+    const user = yield user_1.default.findOne({ username });
+    if (user) {
+        return res.status(400).json({ msg: "El usuario ya existe" });
+    }
+    const newUser = new user_1.default(req.params);
+    yield newUser.save();
+    return res.status(201).json({ msg: "Usuario creado correctamente" });
+});
+exports.createUser = createUser;
 // * entrar
 const logIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     if (!req.body.username || !req.body.password) {

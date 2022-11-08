@@ -74,7 +74,6 @@ export const deleteRecipe = async (req: Request, res: Response) => {
 
 // TODO mostrar todas las recetas
 export const getAllRecipes = async (req: Request, res: Response) => {
-
 	const recipes = await Recipe.find();
 	return res.json(recipes);
 };
