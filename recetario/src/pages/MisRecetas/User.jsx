@@ -30,7 +30,7 @@ class User extends Component {
 		};
 
 		return (
-			<div>
+			<div clas>
 				<div className="navbar bg-base-100">
 					<div className="navbar-start">
 						<div className="dropdown">
@@ -57,6 +57,11 @@ class User extends Component {
 
 				<div>
 					<h2 className="text-center text-3xl">{usuario.full_name}</h2>
+				</div>
+				<div>
+					<h2 className="text-center btn btn-active btn-accent ">
+						Crear nueva receta
+					</h2>
 				</div>
 			</div>
 		);

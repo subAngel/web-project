@@ -1,4 +1,5 @@
 import Header from "../components/Header";
+import Login from "../components/Login";
 import Singup from "../components/Singup";
 
 export default function SignUpPage() {
@@ -12,7 +13,9 @@ export default function SignUpPage() {
 						linkName={"Inicia sesión aquí"}
 						linkUrl={"/login"}
 					/>
+					{/* * TODO Agregar esto */}
 					<Singup />
+					{/* <Login /> */}
 				</div>
 			</div>
 		</>

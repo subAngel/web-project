@@ -2,8 +2,13 @@ import { Component } from "react";
 import Axios from "axios";
 import Cookies from "universal-cookie";
 import md5 from "md5";
+import { ToastContainer, toast } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
+
 import { useState } from "react";
 import { loginFields } from "../constants/formFields";
+import Input from "./Input";
 
 const fields = loginFields;
 let fieldsState = {};
@@ -12,91 +17,122 @@ fields.forEach((field) => (fieldsState[field.id] = ""));
 const baseUrl = "http://localhost:4000/users";
 const cookies = new Cookies();
 
-class Login extends Component {
-	state = {
-		form: {
-			username: "",
-			password: "",
-		},
-	};
-
-	handleChange = async (e) => {
-		await this.setState({
-			form: {
-				...this.state.form,
-				[e.target.name]: e.target.value,
-			},
+function Login() {
+	const [username, setUsername] = useState("");
+	const [password, setPassword] = useState("");
+	const [email, setEmail] = useState("");
+	const [full_name, setFullName] = useState("");
+	const [userInputError, setUserInputError] = useState(false);
+	const [hasError, setHasError] = useState(false);
+	const notifyError = (text) =>
+		toast.error(text, {
+			position: "top-right",
+			autoClose: 5000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: true,
+			draggable: true,
+			progress: undefined,
+			theme: "colored",
 		});
-		// console.log(this.state.form);
-	};
 
-	iniciarSesion = async () => {
-		await Axios
-			// .get(baseUrl)
-			.get(baseUrl, {
-				params: {
-					username: this.state.form.username,
-					password: md5(this.state.form.password),
-				},
-			})
-			.then((response) => {
-				console.log(response.data);
-			})
-			.then((res) => {
-				if (res.length > 0) {
-					var respuesta = res[0];
-					cookies.set("_id", respuesta._id, { path: "/" });
-					cookies.set("full_name", respuesta.full_name, { path: "/" });
-					cookies.set("username", respuesta.username, { path: "/" });
-					cookies.set("email", respuesta.email, { path: "/" });
-					alert(`Bienvenido ${respuesta.full_name}`);
-				} else {
-					alert("El usuario o la contraseña no son correctos");
-				}
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-	};
+	function handleChange(name, value) {
+		if (name == "username") {
+			let regex = new RegExp("^[a-zA-Z0-9]+$");
+			if (regex.test(value)) {
+				console.log(name, value);
+				setUsername(value);
+			} else {
+				console.log("El nombre de usuario no debe tener espacios");
+				notifyError("El nombre de usuario no debe tener espacios");
+			}
+		}
+		if (name == "password") {
+			let regex = new RegExp("^[a-zA-Z0-9]+$");
+			if (regex.test(value)) {
+				console.log(name, value);
+				setPassword(value);
+			} else {
+				console.log("La contraseña no admite espacios");
+				notifyError("La contraseña no admite espacios");
+			}
+		}
+		if (name === "email") {
+			console.log(name, value);
+			setEmail(value);
+		}
+		if (name === "full_name") {
+			let regex = new RegExp("^[a-zA-Z ]+$");
+			if (regex.test(value)) {
+				console.log(name, value);
+				setFullName(value);
+			} else {
+				notifyError("El nombre completo del usuario no debe tener numeros");
+			}
+		}
+	}
 
-	// TODO handle login api integration here
-	render() {
-		return (
+	return (
+		<>
 			<form className="mt-8 space-y-6">
 				<div className="-space-y-px">
 					<div>
-						<input
-							onChange={this.handleChange}
-							id="username"
-							name="username"
-							type="text"
-							autoComplete="off"
-							className="input input-bordered w-full"
-							placeholder="Nombre de usuario"
+						<Input
+							atributo={{
+								id: "username",
+								name: "username",
+								placeholder: "Ingrese su nombre de usuario",
+								type: "text",
+							}}
+							value={username}
+							handleChange={handleChange}
 						/>
 					</div>
 					<div>
-						<input
-							onChange={this.handleChange}
-							id="password"
-							name="password"
-							type="password"
-							autoComplete="off"
-							className="input input-bordered w-full mt-8"
-							placeholder="Contraseña"
+						<Input
+							atributo={{
+								id: "full_name",
+								name: "full_name",
+								placeholder: "Ingrese su nombre completo",
+								type: "text",
+							}}
+							handleChange={handleChange}
+						/>
+					</div>
+					<div>
+						<Input
+							atributo={{
+								id: "email",
+								name: "email",
+								placeholder: "Ingrese su correo electronico",
+								type: "email",
+							}}
+							handleChange={handleChange}
+						/>
+					</div>
+					<div>
+						<Input
+							atributo={{
+								id: "password",
+								name: "password",
+								placeholder: "Ingrese su contrasena",
+								type: "password",
+							}}
+							value={password}
+							handleChange={handleChange}
 						/>
 					</div>
 				</div>
 				<button
-					className="btn w-full "
-					onClick={() => {
-						this.iniciarSesion();
-					}}
+					className="group relative w-full flex justify-center py-2 px-4 border border-transparent btn btn-primary"
+					// onClick={toast}
 				>
 					Iniciar Sesión
 				</button>
 			</form>
-		);
-	}
+
+			<ToastContainer />
+		</>
+	);
 }
 export default Login;

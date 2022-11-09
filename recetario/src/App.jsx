@@ -1,8 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import LoginPage from "./pages/Login";
+import Nomatch from "./pages/404/Nomatch";
 import SignUpPage from "./pages/SignUp";
-import User from "./pages/User";
+import User from "./pages/MisRecetas/User";
 
 function App() {
 	return (
@@ -12,6 +13,7 @@ function App() {
 				<Route path="/login" element={<LoginPage />} />
 				<Route path="/" element={<Home />} />
 				{/* <Route path="/sesion" element={ <Sesion/>} /> */}
+				<Route path="*" element={<Nomatch />}></Route>
 				<Route path="/mis-recetas" element={<User />} />
 			</Routes>
 		</BrowserRouter>

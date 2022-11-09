@@ -2,120 +2,175 @@ import { Component, useState } from "react";
 import { signupFields } from "../constants/formFields";
 import FormAction from "./FormAction";
 import { useForm } from "react-hook-form";
+import { ToastContainer, toast } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
 
 import Input from "./Input";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const createUserURL = "http://localhost:4000/create-user";
 
-class Singup extends Component {
-	state = {
-		form: {
-			full_name: "",
-			username: "",
-			email: "",
-			password: "",
-		},
-	};
+function Singup() {
+	const [username, setUsername] = useState("");
+	const [password, setPassword] = useState("");
+	const [full_name, setFull_name] = useState("");
+	const [email, setEmail] = useState("");
+	const [hasError, setHasError] = useState(false);
 
-	async postUser() {
+	const notifyError = (text) =>
+		toast.error(text, {
+			position: "top-right",
+			autoClose: 5000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: true,
+			draggable: true,
+			progress: undefined,
+			theme: "colored",
+		});
+
+	const crearUsuario = async () => {
 		await axios
-			.post(createUserURL, this.state.form)
+			.post(`${createUserURL}/${full_name}/${username}/${email}/${password}`)
 			.then((res) => {
-				console.log(res);
-				alert(res);
+				console.log(res.data);
+				// toast.success("Usuario Creado", {
+				// 	position: "top-right",
+				// 	autoClose: 5000,
+				// 	hideProgressBar: false,
+				// 	closeOnClick: true,
+				// 	pauseOnHover: true,
+				// 	draggable: true,
+				// 	progress: undefined,
+				// 	theme: "colored",
+				// });
+				// window.location.href = "./login";
+				// alert(res);
 			})
 			.catch((err) => {
 				console.log(err);
 				alert(err);
 			});
+	};
+
+	function handleChange(name, value) {
+		if (name == "username") {
+			let regex = new RegExp("^[a-zA-Z0-9]+$");
+			if (regex.test(value)) {
+				console.log(name, value);
+				setHasError(false);
+				setUsername(value);
+			} else {
+				console.log("El nombre de usuario no debe tener espacios");
+				notifyError(
+					"El nombre de usuario no debe tener espacios ni simbolos raros"
+				);
+				setHasError(true);
+			}
+		}
+		if (name == "password") {
+			let regex = new RegExp("^[a-zA-Z0-9]+$");
+			if (regex.test(value)) {
+				console.log(name, value);
+				setPassword(value);
+				setHasError(false);
+			} else {
+				console.log("La contraseña no admite espacios");
+				setHasError(true);
+				notifyError("La contraseña no admite espacios");
+			}
+		}
+		if (name === "email") {
+			console.log(name, value);
+			setEmail(value);
+			setHasError(false);
+		}
+		if (name === "full_name") {
+			let regex = new RegExp("^[a-zA-Z ]+$");
+			if (regex.test(value)) {
+				console.log(name, value);
+				setHasError(false);
+				setFull_name(value);
+			} else {
+				setHasError(true);
+				notifyError("El nombre completo del usuario no debe tener numeros");
+			}
+		}
 	}
 
-	options = {
-		method: "post",
-		url: createUserURL,
-		data: JSON.stringify(this.state.form),
-	};
-
-	crearUsuario = async () => {
-		// await axios({})
-		// 	.then((res) => alert("res", res))
-		// 	.catch((err) => alert(err));
-		await axios
-			.post(
-				`${createUserURL}/${this.state.form.full_name}/${this.state.form.username}/${this.state.form.email}/${this.state.form.password}`
-			)
-			.then((res) => {
-				console.log(res);
-				alert(res);
-			})
-			.catch((err) => {
-				console.log(err);
-				alert(err);
-			});
-	};
-
-	handleChange = async (e) => {
-		await this.setState({
-			form: {
-				...this.state.form,
-				[e.target.name]: e.target.value,
-			},
-		});
-		// console.log(JSON.stringify(this.state.form));
-	};
-
-	render() {
-		return (
-			<form className="mt-8 space-y-6">
-				<div className="">
-					<input
-						onChange={this.handleChange}
-						className="input input-bordered w-full my-2"
-						id="full_name"
-						name="full_name"
-						type="text"
-						required
-						autoComplete="off"
-						placeholder="Nombre completo"
-					/>
-					<input
-						onChange={this.handleChange}
-						className="input input-bordered w-full my-4"
-						id="username"
-						name="username"
-						type="text"
-						required
-						placeholder="Nombre de usuario"
-					/>
-					<input
-						onChange={this.handleChange}
-						className="input input-bordered w-full my-4"
-						id="email"
-						name="email"
-						type="email"
-						required
-						placeholder="Correo electronico"
-					/>
-					<input
-						onChange={this.handleChange}
-						className="input input-bordered w-full my-4"
-						id="password"
-						name="password"
-						type="password"
-						required
-						placeholder="Contraseña"
-					/>
-				</div>
+	return (
+		<form className="mt-8 space-y-11 form-control">
+			<div className="px-4 mx-auto w-80 ">
+				<Input
+					handleChange={handleChange}
+					className="input input-bordered w-full my-2"
+					atributo={{
+						id: "full_name",
+						name: "full_name",
+						placeholder: "Nombre completo",
+						type: "text",
+					}}
+					value={full_name}
+					param={hasError}
+				/>
+				<Input
+					handleChange={handleChange}
+					atributo={{
+						id: "username",
+						name: "username",
+						placeholder: "Nombre de usuario",
+						type: "text",
+					}}
+					value={username}
+					param={hasError}
+				/>
+				<Input
+					atributo={{
+						id: "email",
+						name: "email",
+						placeholder: "Correo electronico",
+						type: "email",
+					}}
+					handleChange={handleChange}
+					value={email}
+				/>
+				<Input
+					handleChange={handleChange}
+					atributo={{
+						id: "password",
+						name: "password",
+						type: "password",
+						placeholder: "Contraseña",
+					}}
+					value={password}
+					param={hasError}
+				/>
 				<button
 					className="group relative w-full flex justify-center py-4 px-4 border border-transparent btn btn-primary"
-					onClick={this.crearUsuario}
+					onClick={() => {
+						crearUsuario();
+						// toast.success("Usuario Creado", {
+						// 	position: "top-right",
+						// 	autoClose: 5000,
+						// 	hideProgressBar: false,
+						// 	closeOnClick: true,
+						// 	pauseOnHover: true,
+						// 	draggable: true,
+						// 	progress: undefined,
+						// 	theme: "colored",
+						// });
+						window.location.href = "./login";
+					}}
+					disabled={hasError}
 				>
-					Registrarse
+					<Link to="/login">Registrarse</Link>
 				</button>
-			</form>
-		);
-	}
+			</div>
+			<ToastContainer />
+		</form>
+	);
 }
 
 export default Singup;

@@ -8,13 +8,15 @@ function Input({ atributo, handleChange, param }) {
 				name={atributo.name}
 				placeholder={atributo.placeholder}
 				type={atributo.type}
+				autoComplete="off"
+				required
 				onChange={(e) => {
 					handleChange(e.target.name, e.target.value);
 				}}
 				className={
 					param
-						? "input input-bordered input-error w-full max-w-xs"
-						: "input input-bordered w-full max-w-xs"
+						? "input input-bordered input-error w-full  my-4"
+						: "input input-bordered w-full my-4 "
 				}
 			/>
 		</div>
