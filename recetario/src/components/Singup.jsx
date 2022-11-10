@@ -105,7 +105,7 @@ function Singup() {
 			<div className="px-4 mx-auto w-80 ">
 				<Input
 					handleChange={handleChange}
-					className="input input-bordered w-full my-2"
+					className="input input-bordered w-full my-2 "
 					atributo={{
 						id: "full_name",
 						name: "full_name",

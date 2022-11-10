@@ -1,36 +1,52 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { ImExit } from "react-icons/im";
+import { GiChefToque } from "react-icons/gi";
 
-function NavBar({ logout }) {
-	const cerrarSesion = () => {
-		cookies.remove("_id", { path: "/" });
-		cookies.remove("username", { path: "/" });
-		cookies.remove("full_name", { path: "/" });
-		cookies.remove("email", { path: "/" });
-		window.location.href = "./login";
-	};
-
+function NavBar({ darclick, fullname }) {
 	return (
-		<div className="navbar bg-base-100">
-			<div className="navbar-start">
-				<div className="dropdown">
-					<ul
-						tabIndex={0}
-						className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
-					></ul>
+		<nav className="w-full justify-center px-4">
+			<div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
+				<div>
+					<div className="flex items-center justify-between py-3 md:py-5 md:block">
+						<h2 className="text-2xl font-bold">
+							<Link to="/">Inicio</Link>
+						</h2>
+					</div>
+				</div>
+				<div>
+					<div
+						className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 block `}
+					>
+						<ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
+							<li>
+								<h2 className="text-xl mr-44">{fullname}</h2>
+							</li>
+							<li>
+								<button className=" btn btn-active btn-accent text-lg">
+									<Link to="/mis-recetas/nueva-receta">
+										Crear nueva receta
+									</Link>
+								</button>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div className="hidden space-x-2 md:inline-block">
+					<div
+						className="tooltip tooltip-warning tooltip-bottom"
+						data-tip="Cerrar sesion"
+					>
+						<button
+							onClick={() => darclick()}
+							className="btn btn-warning"
+						>
+							<ImExit />
+						</button>
+					</div>
 				</div>
 			</div>
-			<div className="navbar-center">
-				<a className="btn btn-ghost normal-case text-xl">Mis recetas</a>
-			</div>
-			<div className="navbar-end">
-				<button
-					onClick={() => cerrarSesion()}
-					className="btn btn-active btn-ghost"
-				>
-					Cerrar sesion
-				</button>
-			</div>
-		</div>
+		</nav>
 	);
 }
 
