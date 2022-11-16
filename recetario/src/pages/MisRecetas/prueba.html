@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <form
+            method="POST"
+            action="http://localhost:4000//your-recipes/angel"
+            encType="multipart/form-data">
+
+            <div>
+                <label htmlFor="receta">Nombre de la receta</label>
+                <input
+                    type="text"
+                    id="receta"
+                    name="recipe_name"
+                    placeholder="Chilaquiles Rojos"
+                    />
+            </div>
+            <div>
+                <label htmlFor="desc">Descripcion de la receta</label>
+                <input
+                    id="desc"
+                    name="description"
+                    as="textarea"
+                    placeholder="descripcion de la receta"
+                    />
+            </div>
+            <div>
+                <label htmlFor="file">sube una imagen</label>
+                <input
+                    type="file"
+                    id="file"
+                    name="file"
+                    />
+            </div>
+            <div>
+                <label htmlFor="fullname">Nombre completo de usuario</label>
+                <input
+                    type="text"
+                    id="fullname"
+                    name="fullname_user"
+                    placeholder="Ricardo Lopez"
+                    />
+            </div>
+            <div>
+                <label htmlFor="comensales">Numero de comensales</label>
+                <input
+                    type="number"
+                    id="comensales"
+                    name="servings"
+                    placeholder="3"
+                    />
+            </div>
+            <div>
+                <label htmlFor="time">Tiempo de cocción</label>
+                <input
+                    type="number"
+                    id="time"
+                    name="cooking_time"
+                    placeholder="120"
+                    />
+                <label> Minutos</label>
+            </div>
+            <div>
+                <label htmlFor="ingredientes">Ingredientes</label>
+                <input
+                    type="text"
+                    id="ingredientes"
+                    name="ingredients"
+                    placeholder="Ingredientes"
+                    />
+            </div>
+            <div>
+                <label htmlFor="pasos">Pasos</label>
+                <input
+                    type="text"
+                    id="pasos"
+                    name="steps"
+                    placeholder="Pasos"
+                    />
+            </div>
+            <button type="submit">Crear receta</button>
+        </form>
+
+    </body>
+</html>

@@ -11,14 +11,7 @@ const recipesSchema = new mongoose_1.Schema({
         type: String,
         required: true,
     },
-    photo: {
-        filename: { type: String },
-        path: { type: String },
-        originalname: { type: String },
-        mumetype: String,
-        size: { type: Number },
-    },
-    origin: String,
+    fullname_user: String,
     servings: {
         type: Number,
         required: true,
@@ -28,12 +21,17 @@ const recipesSchema = new mongoose_1.Schema({
         required: true,
     },
     ingredients: {
-        type: Array,
+        type: String,
         required: true,
     },
     steps: {
-        type: Array,
+        type: String,
         required: true,
     },
+    filename: String,
+    path: String,
+    created_ad: { type: Date, default: Date.now() },
+    mimetype: String,
+    originalname: String,
 });
 exports.default = (0, mongoose_1.model)("recipes", recipesSchema);

@@ -16,30 +16,40 @@ export const getRecipe = (req: Request, res: Response) => {
 	return res.json({ msg: "get recipe" });
 };
 export const createRecipe = async (req: Request, res: Response) => {
-	const {
-		recipe_name,
-		description,
-		photo,
-		origin,
-		servings,
-		cooking_time,
-		ingredients,
-		steps,
-	} = req.body;
-	const { user } = req.params;
-	const recipe = new Recipe({
-		recipe_name,
-		description,
-		user,
-		photo,
-		origin,
-		servings,
-		cooking_time,
-		ingredients,
-		steps,
-	});
-	await recipe.save();
-	return res.status(201).json({ status: "Receta guardada" });
+	try {
+		const filename = req.file?.filename;
+		const path = req.file?.path;
+		const mimetype = req.file?.mimetype;
+		const originalname = req.file?.originalname;
+		const {
+			recipe_name,
+			description,
+			fullname_user,
+			servings,
+			cooking_time,
+			ingredients,
+			steps,
+		} = req.body;
+		const { user } = req.params;
+		const recipe = new Recipe({
+			recipe_name,
+			description,
+			user,
+			fullname_user,
+			servings,
+			cooking_time,
+			ingredients,
+			steps,
+			filename,
+			path,
+			mimetype,
+			originalname,
+		});
+		await recipe.save();
+		return res.status(201).json({ status: "Receta guardada" });
+	} catch (error) {
+		console.log(error);
+	}
 };
 
 export const updateRecipe = async (req: Request, res: Response) => {
@@ -47,7 +57,7 @@ export const updateRecipe = async (req: Request, res: Response) => {
 		recipe_name,
 		description,
 		photo,
-		origin,
+
 		servings,
 		cooking_time,
 		ingredients,
@@ -58,7 +68,7 @@ export const updateRecipe = async (req: Request, res: Response) => {
 		recipe_name,
 		description,
 		photo,
-		origin,
+
 		servings,
 		cooking_time,
 		ingredients,

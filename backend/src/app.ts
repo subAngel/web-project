@@ -6,6 +6,7 @@ import recipesRoutes from "./routes/recipes.routes";
 import { format } from "timeago.js";
 import multer, { FileFilterCallback } from "multer";
 import { uuid } from "uuidv4";
+import fs from "fs";
 import * as path from "path";
 
 // * types
@@ -22,26 +23,25 @@ app.set("port", process.env.PORT || 4000);
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
 const storage = multer.diskStorage({
 	destination: path.join(__dirname, "public/img/uploads"),
-	filename: (
-		req: Request,
-		file: Express.Multer.File,
-		callback: DestinationCallback
-	): void => {
-		callback(null, uuid() + path.extname(file.originalname));
+	filename: (req, file, cb) => {
+		cb(null, file.filename + path.extname(file.originalname));
 	},
 });
-app.use(multer({ storage: storage }).single("image"));
+app.use(multer({ storage }).single("image"));
+
 // routes
+
 app.get("/", (req, res) => {
 	res.json({ msg: `The api is http://localhost:${app.get("port")}` });
 });
+app.use(authRoutes);
+app.use(recipesRoutes);
 
 // * static files
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use(authRoutes);
-app.use(recipesRoutes);
 export default app;
