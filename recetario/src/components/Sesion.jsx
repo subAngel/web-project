@@ -14,38 +14,6 @@ class Sesion extends Component {
 		},
 	};
 
-	iniciarSesion2 = async () => {
-		if (this.state.username !== "" && this.state.password !== "") {
-			await axios
-				.get(peticionUrl, {
-					params: {
-						username: this.state.username,
-						password: md5(this.state.password),
-					},
-				})
-				.then((res) => {
-					console.log(res.data);
-					return res.data;
-				})
-				.then((res) => {
-					if (res.length > 0) {
-						var respuesta = res[0];
-						cookies.set("_id", respuesta._id, { path: "/" });
-						cookies.set("full_name", respuesta.full_name, { path: "/" });
-						cookies.set("username", respuesta.username, { path: "/" });
-						cookies.set("email", respuesta.email, { path: "/" });
-						alert(`Bienvenido ${respuesta.full_name}`);
-					}
-				})
-				.catch((err) => {
-					console.log(err);
-				});
-			e.preventDefault();
-		} else {
-			alert("los campos deben ser requeridos");
-		}
-	};
-
 	iniciarSesion = async () => {
 		await axios
 			.get(peticionUrl + this.state.form.username)

@@ -52,6 +52,7 @@ const createRecipe = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             mimetype,
             originalname,
         });
+        console.log(recipe);
         yield recipe.save();
         return res.status(201).json({ status: "Receta guardada" });
     }

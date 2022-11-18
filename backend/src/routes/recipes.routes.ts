@@ -10,7 +10,7 @@ import {
 
 const router = Router();
 
-router.get("/:user/your-recipes", getRecipes);
+router.get("/your-recipes/:user", getRecipes);
 router.get("/all-recipes", getAllRecipes);
 router.post("/your-recipes/:user", createRecipe);
 router.put("/:user/your-recipes/:id", updateRecipe);

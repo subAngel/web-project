@@ -31,6 +31,7 @@ export const createRecipe = async (req: Request, res: Response) => {
 			steps,
 		} = req.body;
 		const { user } = req.params;
+
 		const recipe = new Recipe({
 			recipe_name,
 			description,
@@ -45,6 +46,7 @@ export const createRecipe = async (req: Request, res: Response) => {
 			mimetype,
 			originalname,
 		});
+		console.log(recipe);
 		await recipe.save();
 		return res.status(201).json({ status: "Receta guardada" });
 	} catch (error) {
