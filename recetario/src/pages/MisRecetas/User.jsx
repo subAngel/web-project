@@ -1,9 +1,11 @@
 import React from "react";
 import Cookies from "universal-cookie";
 import { AiOutlineHome } from "react-icons/ai";
+
 import { Link } from "react-router-dom";
 
 import { Component } from "react";
+import NavBar from "../../components/NavBar";
 
 const cookies = new Cookies();
 
@@ -21,6 +23,7 @@ class User extends Component {
 			window.location.href = "./login";
 		}
 	};
+
 	render() {
 		const usuario = {
 			_id: cookies.get("_id"),
@@ -30,38 +33,14 @@ class User extends Component {
 		};
 
 		return (
-			<div clas>
-				<div className="navbar bg-base-100">
-					<div className="navbar-start">
-						<div className="dropdown">
-							<Link to="/">
-								<button className="btn btn-ghost">Inicio</button>
-							</Link>
-						</div>
-					</div>
-					<div className="navbar-center">
-						<a className="btn btn-primary normal-case text-xl">
-							Mis recetas
-						</a>
-					</div>
-					<div className="navbar-end">
-						<button
-							onClick={() => this.cerrarSesion()}
-							className="btn btn-ghost"
-						>
-							Cerrar sesion
-						</button>
-					</div>
-				</div>
+			<div>
+				<NavBar
+					fullname={usuario.full_name}
+					darclick={this.cerrarSesion}
+				></NavBar>
 				{/* //* DASHBOARD */}
-
-				<div>
-					<h2 className="text-center text-3xl">{usuario.full_name}</h2>
-				</div>
-				<div>
-					<h2 className="text-center btn btn-active btn-accent ">
-						Crear nueva receta
-					</h2>
+				<div className="grid place-items-center mt-10">
+					<h1 className="text-4xl font-bold">Mis Recetas</h1>
 				</div>
 			</div>
 		);

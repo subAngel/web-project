@@ -7,12 +7,15 @@ export interface IRecipe extends Document {
 	description: string;
 	user: string;
 	fullname_user: string;
-	photo: string;
-	origin: string;
 	servings: number;
 	cooking_time: number;
-	ingredients: Array<Object>;
-	steps: Array<Object>;
+	ingredients: string;
+	steps: string;
+	filename: String;
+	path: String;
+	created_at: Date;
+	mimetype: String;
+	originalname: String;
 }
 
 const recipesSchema = new Schema({
@@ -25,14 +28,7 @@ const recipesSchema = new Schema({
 		type: String,
 		required: true,
 	},
-	photo: {
-		filename: { type: String },
-		path: { type: String },
-		originalname: { type: String },
-		mumetype: String,
-		size: { type: Number },
-	},
-	origin: String,
+	fullname_user: String,
 	servings: {
 		type: Number,
 		required: true,
@@ -42,13 +38,18 @@ const recipesSchema = new Schema({
 		required: true,
 	},
 	ingredients: {
-		type: Array,
+		type: String,
 		required: true,
 	},
 	steps: {
-		type: Array,
+		type: String,
 		required: true,
 	},
+	filename: String,
+	path: String,
+	created_ad: { type: Date, default: Date.now() },
+	mimetype: String,
+	originalname: String,
 });
 
 export default model<IRecipe>("recipes", recipesSchema);

@@ -30,31 +30,45 @@ const getRecipe = (req, res) => {
 };
 exports.getRecipe = getRecipe;
 const createRecipe = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { recipe_name, description, photo, origin, servings, cooking_time, ingredients, steps, } = req.body;
-    const { user } = req.params;
-    const recipe = new recipes_1.default({
-        recipe_name,
-        description,
-        user,
-        photo,
-        origin,
-        servings,
-        cooking_time,
-        ingredients,
-        steps,
-    });
-    yield recipe.save();
-    return res.status(201).json({ status: "Receta guardada" });
+    var _a, _b, _c, _d;
+    try {
+        const filename = (_a = req.file) === null || _a === void 0 ? void 0 : _a.filename;
+        const path = "/img/uploads/" + ((_b = req.file) === null || _b === void 0 ? void 0 : _b.filename);
+        const mimetype = (_c = req.file) === null || _c === void 0 ? void 0 : _c.mimetype;
+        const originalname = (_d = req.file) === null || _d === void 0 ? void 0 : _d.originalname;
+        const { recipe_name, description, fullname_user, servings, cooking_time, ingredients, steps, } = req.body;
+        const { user } = req.params;
+        const recipe = new recipes_1.default({
+            recipe_name,
+            description,
+            user,
+            fullname_user,
+            servings,
+            cooking_time,
+            ingredients,
+            steps,
+            filename,
+            path,
+            mimetype,
+            originalname,
+        });
+        console.log(recipe);
+        yield recipe.save();
+        return res.status(201).send("Receta guardada");
+        // return res.status(201);
+    }
+    catch (error) {
+        console.log(error);
+    }
 });
 exports.createRecipe = createRecipe;
 const updateRecipe = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { recipe_name, description, photo, origin, servings, cooking_time, ingredients, steps, } = req.body;
+    const { recipe_name, description, photo, servings, cooking_time, ingredients, steps, } = req.body;
     // const { user, id } = req.params;
     const newRecipe = {
         recipe_name,
         description,
         photo,
-        origin,
         servings,
         cooking_time,
         ingredients,

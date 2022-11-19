@@ -36,18 +36,6 @@ function Singup() {
 			.post(`${createUserURL}/${full_name}/${username}/${email}/${password}`)
 			.then((res) => {
 				console.log(res.data);
-				// toast.success("Usuario Creado", {
-				// 	position: "top-right",
-				// 	autoClose: 5000,
-				// 	hideProgressBar: false,
-				// 	closeOnClick: true,
-				// 	pauseOnHover: true,
-				// 	draggable: true,
-				// 	progress: undefined,
-				// 	theme: "colored",
-				// });
-				// window.location.href = "./login";
-				// alert(res);
 			})
 			.catch((err) => {
 				console.log(err);
@@ -105,7 +93,7 @@ function Singup() {
 			<div className="px-4 mx-auto w-80 ">
 				<Input
 					handleChange={handleChange}
-					className="input input-bordered w-full my-2"
+					className="input input-bordered w-full my-2 "
 					atributo={{
 						id: "full_name",
 						name: "full_name",
@@ -151,16 +139,7 @@ function Singup() {
 					className="group relative w-full flex justify-center py-4 px-4 border border-transparent btn btn-primary"
 					onClick={() => {
 						crearUsuario();
-						// toast.success("Usuario Creado", {
-						// 	position: "top-right",
-						// 	autoClose: 5000,
-						// 	hideProgressBar: false,
-						// 	closeOnClick: true,
-						// 	pauseOnHover: true,
-						// 	draggable: true,
-						// 	progress: undefined,
-						// 	theme: "colored",
-						// });
+
 						window.location.href = "./login";
 					}}
 					disabled={hasError}

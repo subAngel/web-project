@@ -32,7 +32,7 @@ const cors_1 = __importDefault(require("cors"));
 const auth_routes_1 = __importDefault(require("./routes/auth.routes"));
 const recipes_routes_1 = __importDefault(require("./routes/recipes.routes"));
 const multer_1 = __importDefault(require("multer"));
-const uuidv4_1 = require("uuidv4");
+const uuid_1 = require("uuid");
 const path = __importStar(require("path"));
 // initializations
 const app = (0, express_1.default)();
@@ -42,20 +42,21 @@ app.set("port", process.env.PORT || 4000);
 app.use((0, morgan_1.default)("dev"));
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: false }));
+app.use(express_1.default.static(path.join(__dirname, "public")));
 app.use((0, cors_1.default)());
 const storage = multer_1.default.diskStorage({
     destination: path.join(__dirname, "public/img/uploads"),
-    filename: (req, file, callback) => {
-        callback(null, (0, uuidv4_1.uuid)() + path.extname(file.originalname));
+    filename: (req, file, cb) => {
+        cb(null, (0, uuid_1.v4)() + path.extname(file.originalname));
     },
 });
-app.use((0, multer_1.default)({ storage: storage }).single("image"));
+app.use((0, multer_1.default)({ storage }).single("image"));
+// * static files
+app.use("/", express_1.default.static(path.resolve(__dirname, "public")));
 // routes
 app.get("/", (req, res) => {
     res.json({ msg: `The api is http://localhost:${app.get("port")}` });
 });
-// * static files
-app.use(express_1.default.static(path.join(__dirname, "public")));
 app.use(auth_routes_1.default);
 app.use(recipes_routes_1.default);
 exports.default = app;
