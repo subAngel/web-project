@@ -1,5 +1,6 @@
 import React from "react";
 import Cookies from "universal-cookie";
+import { useEffect, useState } from "react";
 import { AiOutlineHome } from "react-icons/ai";
 
 import { Link } from "react-router-dom";
@@ -44,6 +45,8 @@ class User extends Component {
 						Mis Recetas
 					</h1>
 				</div>
+
+				<div className="container mx-auto px-4"></div>
 			</div>
 		);
 	}
