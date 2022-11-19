@@ -39,8 +39,10 @@ class User extends Component {
 					darclick={this.cerrarSesion}
 				></NavBar>
 				{/* //* DASHBOARD */}
-				<div className="grid place-items-center mt-10">
-					<h1 className="text-4xl font-bold">Mis Recetas</h1>
+				<div className="grid place-items-center bg-white">
+					<h1 className="text-4xl font-bold bg-white mt-10 mb-10">
+						Mis Recetas
+					</h1>
 				</div>
 			</div>
 		);
