@@ -12,6 +12,7 @@ function FormReceta() {
 	const username = cookies.get("username");
 	const fullname = cookies.get("full_name");
 	const postImgURL = `http://localhost:4000/your-recipes/${username}`;
+	const [fullname_user, setFullname_user] = useState(fullname);
 	return (
 		<>
 			<div>
@@ -64,6 +65,7 @@ function FormReceta() {
 									className="input w-full"
 									name="fullname_user"
 									value={fullname}
+									readOnly
 									placeholder="Ricardo Lopez"
 								/>
 							</label>
@@ -121,8 +123,14 @@ function FormReceta() {
 							</label>
 						</div>
 
-						<button type="submit" className="btn w-full">
-							Crear Receta
+						<button
+							type="submit"
+							className="btn w-full"
+							onClick={() => {
+								window.location.href = "./mis-recetas";
+							}}
+						>
+							<Link>Crear Receta</Link>
 						</button>
 					</form>
 				</div>

@@ -18,7 +18,7 @@ export const getRecipe = (req: Request, res: Response) => {
 export const createRecipe = async (req: Request, res: Response) => {
 	try {
 		const filename = req.file?.filename;
-		const path = req.file?.path;
+		const path = "/img/uploads/" + req.file?.filename;
 		const mimetype = req.file?.mimetype;
 		const originalname = req.file?.originalname;
 		const {
@@ -48,7 +48,8 @@ export const createRecipe = async (req: Request, res: Response) => {
 		});
 		console.log(recipe);
 		await recipe.save();
-		return res.status(201).json({ status: "Receta guardada" });
+		return res.status(201).send("Receta guardada");
+		// return res.status(201);
 	} catch (error) {
 		console.log(error);
 	}

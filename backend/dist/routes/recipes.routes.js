@@ -12,3 +12,4 @@ router.delete("/:user/your-recipes/:id", recipes_controller_1.deleteRecipe);
 router.get("/:user/your-recipes/:id", recipes_controller_1.getRecipe);
 router.get("/all-recipes", recipes_controller_1.getAllRecipes);
 exports.default = router;
+//87298afc-190d-4276-9216-ce62a5931ac5.jpg

@@ -33,7 +33,7 @@ const createRecipe = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     var _a, _b, _c, _d;
     try {
         const filename = (_a = req.file) === null || _a === void 0 ? void 0 : _a.filename;
-        const path = (_b = req.file) === null || _b === void 0 ? void 0 : _b.path;
+        const path = "/img/uploads/" + ((_b = req.file) === null || _b === void 0 ? void 0 : _b.filename);
         const mimetype = (_c = req.file) === null || _c === void 0 ? void 0 : _c.mimetype;
         const originalname = (_d = req.file) === null || _d === void 0 ? void 0 : _d.originalname;
         const { recipe_name, description, fullname_user, servings, cooking_time, ingredients, steps, } = req.body;
@@ -54,7 +54,8 @@ const createRecipe = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         });
         console.log(recipe);
         yield recipe.save();
-        return res.status(201).json({ status: "Receta guardada" });
+        return res.status(201).send("Receta guardada");
+        // return res.status(201);
     }
     catch (error) {
         console.log(error);

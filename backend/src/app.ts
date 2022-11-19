@@ -5,7 +5,7 @@ import authRoutes from "./routes/auth.routes";
 import recipesRoutes from "./routes/recipes.routes";
 import { format } from "timeago.js";
 import multer, { FileFilterCallback } from "multer";
-import { uuid } from "uuidv4";
+import { v4 as uuidv4 } from "uuid";
 import fs from "fs";
 import * as path from "path";
 
@@ -28,10 +28,12 @@ app.use(cors());
 const storage = multer.diskStorage({
 	destination: path.join(__dirname, "public/img/uploads"),
 	filename: (req, file, cb) => {
-		cb(null, file.filename + path.extname(file.originalname));
+		cb(null, uuidv4() + path.extname(file.originalname));
 	},
 });
 app.use(multer({ storage }).single("image"));
+// * static files
+app.use("/", express.static(path.resolve(__dirname, "public")));
 
 // routes
 
@@ -40,8 +42,5 @@ app.get("/", (req, res) => {
 });
 app.use(authRoutes);
 app.use(recipesRoutes);
-
-// * static files
-app.use(express.static(path.join(__dirname, "public")));
 
 export default app;
