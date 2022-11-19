@@ -1,39 +1,33 @@
-import React, { Component, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Cookies from "universal-cookie";
+
+import "./mis-recetas.css";
 
 import { getRecipesRequest } from "../../api/api.js";
 import NavBar from "../../components/NavBar";
 
 const cookies = new Cookies();
 
-class User extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			usuario: {
-				_id: cookies.get("_id"),
-				username: cookies.get("username"),
-				full_name: cookies.get("full_name"),
-				email: cookies.get("email"),
-			},
-			recipes: [],
-		};
-	}
+function User() {
+	const [_id, set_id] = useState(cookies.get("_id"));
+	const [username, setUsername] = useState(cookies.get("username"));
+	const [full_name, setFull_name] = useState(cookies.get("full_name"));
+	const [email, setEmail] = useState(cookies.get("email"));
+	const [recipes, setRecipes] = useState([]);
 
-	componentDidMount = () => {
+	useEffect(() => {
 		if (!cookies.get("username")) {
 			window.location.href = "./login";
 		}
 		async function loadRecipes() {
 			const response = await getRecipesRequest(cookies.get("username"));
 			console.log(response.data);
-			this.setState((state, props) => {
-				return { recipes: state.recipes };
-			});
+			setRecipes(response.data);
 		}
 		loadRecipes();
-	};
-	cerrarSesion = () => {
+	}, []);
+
+	const cerrarSesion = () => {
 		cookies.remove("_id", { path: "/" });
 		cookies.remove("username", { path: "/" });
 		cookies.remove("full_name", { path: "/" });
@@ -41,20 +35,17 @@ class User extends Component {
 		window.location.href = "./login";
 	};
 
-	render() {
-		return (
-			<div>
-				<NavBar
-					fullname={this.state.usuario.full_name}
-					darclick={this.cerrarSesion}
-				></NavBar>
-				{/* //* DASHBOARD */}
-				<div className="grid place-items-center bg-white">
-					<h1 className="text-4xl font-bold mt-10">Mis Recetas</h1>
-				</div>
+	return (
+		<div className="bg-white">
+			<NavBar fullname={full_name} darclick={cerrarSesion}></NavBar>
+			{/* //* DASHBOARD */}
+			<div className="grid place-items-center bg-white">
+				<h1 className="text-4xl font-bold mt-10 mb-3">Mis Recetas</h1>
 			</div>
-		);
-	}
+
+			<div className="container mx-auto p-2"></div>
+		</div>
+	);
 }
 
 export default User;
