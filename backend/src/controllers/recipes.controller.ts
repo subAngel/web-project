@@ -56,29 +56,42 @@ export const createRecipe = async (req: Request, res: Response) => {
 };
 
 export const updateRecipe = async (req: Request, res: Response) => {
-	const {
-		recipe_name,
-		description,
-		photo,
+	try {
+		const filename = req.file?.filename;
+		const path = "/img/uploads/" + req.file?.filename;
+		const mimetype = req.file?.mimetype;
+		const originalname = req.file?.originalname;
+		const {
+			recipe_name,
+			description,
+			fullname_user,
+			servings,
+			cooking_time,
+			ingredients,
+			steps,
+		} = req.body;
+		const { user, id } = req.params;
 
-		servings,
-		cooking_time,
-		ingredients,
-		steps,
-	} = req.body;
-	// const { user, id } = req.params;
-	const newRecipe = {
-		recipe_name,
-		description,
-		photo,
-
-		servings,
-		cooking_time,
-		ingredients,
-		steps,
-	};
-	await Recipe.findByIdAndUpdate(req.params.id, newRecipe);
-	return res.json({ msg: "recipe updated" });
+		const recipe = new Recipe({
+			recipe_name,
+			description,
+			user,
+			fullname_user,
+			servings,
+			cooking_time,
+			ingredients,
+			steps,
+			filename,
+			path,
+			mimetype,
+			originalname,
+		});
+		console.log(recipe);
+		await Recipe.findByIdAndUpdate(id, recipe);
+		return res.status(201).send("Receta actualizada");
+	} catch (error) {
+		console.log(error);
+	}
 };
 export const deleteRecipe = async (req: Request, res: Response) => {
 	await Recipe.findByIdAndRemove(req.params.id);

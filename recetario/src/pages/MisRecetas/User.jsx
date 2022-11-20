@@ -5,6 +5,8 @@ import "./mis-recetas.css";
 
 import { getRecipesRequest } from "../../api/api.js";
 import NavBar from "../../components/NavBar";
+import RecipeCardUser from "../../components/RecipeCardUser";
+import { useRecipes } from "../../context/RecipeProvides";
 
 const cookies = new Cookies();
 
@@ -13,18 +15,15 @@ function User() {
 	const [username, setUsername] = useState(cookies.get("username"));
 	const [full_name, setFull_name] = useState(cookies.get("full_name"));
 	const [email, setEmail] = useState(cookies.get("email"));
-	const [recipes, setRecipes] = useState([]);
+	// const [recipes, setRecipes] = useState([]);
 
+	const { recipes, loadRecipes } = useRecipes();
 	useEffect(() => {
 		if (!cookies.get("username")) {
 			window.location.href = "./login";
 		}
-		async function loadRecipes() {
-			const response = await getRecipesRequest(cookies.get("username"));
-			console.log(response.data);
-			setRecipes(response.data);
-		}
-		loadRecipes();
+
+		loadRecipes(cookies.get("username"));
 	}, []);
 
 	const cerrarSesion = () => {
@@ -43,7 +42,11 @@ function User() {
 				<h1 className="text-4xl font-bold mt-10 mb-3">Mis Recetas</h1>
 			</div>
 
-			<div className="container mx-auto p-2"></div>
+			<div className="md:container md:mx-auto p-2 recipes-container grid grid-cols-4 gap-4">
+				{recipes.map((recipe) => (
+					<RecipeCardUser recipe={recipe} key={recipe._id} />
+				))}
+			</div>
 		</div>
 	);
 }

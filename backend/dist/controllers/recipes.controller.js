@@ -63,19 +63,35 @@ const createRecipe = (req, res) => __awaiter(void 0, void 0, void 0, function* (
 });
 exports.createRecipe = createRecipe;
 const updateRecipe = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { recipe_name, description, photo, servings, cooking_time, ingredients, steps, } = req.body;
-    // const { user, id } = req.params;
-    const newRecipe = {
-        recipe_name,
-        description,
-        photo,
-        servings,
-        cooking_time,
-        ingredients,
-        steps,
-    };
-    yield recipes_1.default.findByIdAndUpdate(req.params.id, newRecipe);
-    return res.json({ msg: "recipe updated" });
+    var _e, _f, _g, _h;
+    try {
+        const filename = (_e = req.file) === null || _e === void 0 ? void 0 : _e.filename;
+        const path = "/img/uploads/" + ((_f = req.file) === null || _f === void 0 ? void 0 : _f.filename);
+        const mimetype = (_g = req.file) === null || _g === void 0 ? void 0 : _g.mimetype;
+        const originalname = (_h = req.file) === null || _h === void 0 ? void 0 : _h.originalname;
+        const { recipe_name, description, fullname_user, servings, cooking_time, ingredients, steps, } = req.body;
+        const { user, id } = req.params;
+        const recipe = new recipes_1.default({
+            recipe_name,
+            description,
+            user,
+            fullname_user,
+            servings,
+            cooking_time,
+            ingredients,
+            steps,
+            filename,
+            path,
+            mimetype,
+            originalname,
+        });
+        console.log(recipe);
+        yield recipes_1.default.findByIdAndUpdate(id, recipe);
+        return res.status(201).send("Receta actualizada");
+    }
+    catch (error) {
+        console.log(error);
+    }
 });
 exports.updateRecipe = updateRecipe;
 const deleteRecipe = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
