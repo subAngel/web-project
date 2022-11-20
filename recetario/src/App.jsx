@@ -6,6 +6,7 @@ import SignUpPage from "./pages/SignUp";
 import User from "./pages/MisRecetas/User";
 import CrearReceta from "./pages/MisRecetas/CrearReceta";
 import { RecipesContextProvider } from "./context/RecipeProvides";
+import VerReceta from "./components/Home/VerReceta";
 
 function App() {
 	return (
@@ -17,6 +18,7 @@ function App() {
 					<Route path="/" element={<Home />} />
 					{/* <Route path="/sesion" element={ <Sesion/>} /> */}
 					<Route path="*" element={<Nomatch />}></Route>
+					<Route path="/receta/:id" element={<VerReceta />} />
 					<Route path="/mis-recetas" element={<User />} />
 					{/* <Route path="/mis-recetas/nueva-receta" element={<FormReceta />} /> */}
 					<Route

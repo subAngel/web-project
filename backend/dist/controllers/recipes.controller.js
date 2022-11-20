@@ -25,9 +25,12 @@ const getRecipes = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     return res.status(200).json(tasks);
 });
 exports.getRecipes = getRecipes;
-const getRecipe = (req, res) => {
-    return res.json({ msg: "get recipe" });
-};
+const getRecipe = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = req.params.id;
+    const recipe = yield recipes_1.default.findOne({ _id: id });
+    console.log(recipe);
+    return res.json(recipe);
+});
 exports.getRecipe = getRecipe;
 const createRecipe = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b, _c, _d;
@@ -69,13 +72,11 @@ const updateRecipe = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         const path = "/img/uploads/" + ((_f = req.file) === null || _f === void 0 ? void 0 : _f.filename);
         const mimetype = (_g = req.file) === null || _g === void 0 ? void 0 : _g.mimetype;
         const originalname = (_h = req.file) === null || _h === void 0 ? void 0 : _h.originalname;
-        const { recipe_name, description, fullname_user, servings, cooking_time, ingredients, steps, } = req.body;
-        const { user, id } = req.params;
-        const recipe = new recipes_1.default({
+        const { recipe_name, description, servings, cooking_time, ingredients, steps, } = req.body;
+        const { id } = req.params;
+        const newRecipe = new recipes_1.default({
             recipe_name,
             description,
-            user,
-            fullname_user,
             servings,
             cooking_time,
             ingredients,
@@ -85,12 +86,15 @@ const updateRecipe = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             mimetype,
             originalname,
         });
-        console.log(recipe);
-        yield recipes_1.default.findByIdAndUpdate(id, recipe);
+        console.log(newRecipe);
+        console.log(typeof id);
+        // await Recipe.updateOne({ _id:  }, newRecipe);
+        yield recipes_1.default.updateOne({ _id: id }, newRecipe);
         return res.status(201).send("Receta actualizada");
     }
     catch (error) {
         console.log(error);
+        return res.status(500).send("Error");
     }
 });
 exports.updateRecipe = updateRecipe;

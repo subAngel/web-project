@@ -13,11 +13,11 @@ const router = Router();
 router.get("/your-recipes/:user", getRecipes);
 router.get("/all-recipes", getAllRecipes);
 router.post("/your-recipes/:user", createRecipe);
-router.put("/your-recipes/:user/:id", updateRecipe);
+router.put("/your-recipes/:id", updateRecipe);
 router.delete("/your-recipes/:id", deleteRecipe);
 // TODO arreglar este get
-router.get("/:user/your-recipes/:id", getRecipe);
-router.get("/all-recipes", getAllRecipes);
+router.get("/recipe/:id", getRecipe);
+// router.get("/all-recipes", getAllRecipes);
 
 export default router;
 

@@ -1,35 +1,55 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { getAllRecipesRequest } from "../../api/api.js";
 
+const API_URL = "http://localhost:4000";
 function SecondarySection() {
+	const navigate = useNavigate();
+	const [recipes, setRecipes] = useState([]);
+	useEffect(() => {
+		async function loadRecipes() {
+			const response = await getAllRecipesRequest();
+			setRecipes(response.data);
+		}
+		loadRecipes();
+	}, []);
+
 	return (
-		<div className="hero min-h-screen bg-base-200">
-			<div className="hero-content flex-col lg:flex-row">
-				<img
-					src="https://www.paulinacocina.net/wp-content/uploads/2020/08/tacos-meat-food-mexican-lunch-dinner-640x480.jpg"
-					className="max-w-4xl rounded-lg shadow-2xl"
-				/>
-				<div>
-					<h2 className="mb-5 font-sans text-5xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none">
-						Bienvenido a tu recetario online
-					</h2>
-					<p className="pr-5 mb-5 text-base text-gray-700 md:text-lg">
-						Un lugar en el que puedes subir tus recetas para que las
-						demás personas las puedan ver.
-					</p>
-					<p>
-						Inicia sesión si ya tienes una cuenta o puedes registrarte a
-						continuación para que puedas crear una receta
-					</p>
-					<div className="flex items-center mt-6">
-						<button className="btn btn-secondary">
-							<Link to="/login">Iniciar Sesion</Link>
-						</button>
-						<button className="btn btn-terciary ml-20">
-							<Link to="/signup">Registrarse</Link>
-						</button>
+		<div className="p-20 container mx-auto px-4 hero">
+			<div className="grid grid-cols-4 gap-8">
+				{recipes.map((recipe) => (
+					<div
+						className="card card-compact w-60 bg-base-100 shadow-xl"
+						key={recipe._id}
+					>
+						<figure>
+							<img
+								src={API_URL + recipe.path}
+								alt={recipe.recipe_name}
+							/>
+						</figure>
+						<div className="card-body">
+							<h2 className="card-title">{recipe.recipe_name}</h2>
+							<p>{recipe.description}</p>
+							<p>
+								Subido por:{" "}
+								<span className="italic font-bold">
+									{recipe.fullname_user}
+								</span>
+							</p>
+							<div className="card-actions justify-end">
+								<button
+									className="btn btn-primary btn-sm"
+									onClick={() => {
+										navigate(`/receta/${recipe._id}`);
+									}}
+								>
+									Ver receta
+								</button>
+							</div>
+						</div>
 					</div>
-				</div>
+				))}
 			</div>
 		</div>
 	);
