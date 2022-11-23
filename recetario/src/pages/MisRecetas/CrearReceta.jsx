@@ -6,12 +6,14 @@ import axios from "axios";
 import Cookies from "universal-cookie";
 
 import "./form.css";
+import { useRecipes } from "../../context/RecipeProvides";
 const cookies = new Cookies();
 
 function CrearReceta() {
 	const username = cookies.get("username");
 	const fullname = cookies.get("full_name");
 
+	const { createRecipe } = useRecipes();
 	// * FORM DATA
 	const [recipe_name, setRecipe_name] = useState("");
 	const [file, setFile] = useState(null);
@@ -63,17 +65,9 @@ function CrearReceta() {
 		formData.append("cooking_time", tiempo);
 		formData.append("ingredients", ingredientes);
 		formData.append("steps", pasos);
+		createRecipe(username, formData);
 		console.log("creando receta");
-		fetch(`http://localhost:4000/your-recipes/${username}`, {
-			method: "POST",
-			body: formData,
-		})
-			.then((res) => res.text())
-			.then((res) => {
-				console.log(res);
-				window.location.href = "../mis-recetas";
-			})
-			.catch((err) => console.error(err));
+		// TODO
 	};
 
 	return (

@@ -24,7 +24,10 @@ function NavBar({ darclick, fullname }) {
 							</li>
 							<li>
 								<button className=" btn btn-active btn-accent text-lg">
-									<Link to="/mis-recetas/nueva-receta">
+									<Link
+										to="/mis-recetas/nueva-receta"
+										className="bg-active"
+									>
 										Crear nueva receta
 									</Link>
 								</button>

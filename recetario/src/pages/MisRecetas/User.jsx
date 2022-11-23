@@ -1,16 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Cookies from "universal-cookie";
-import { AiOutlineHome } from "react-icons/ai";
 
-import { Link } from "react-router-dom";
+import "./mis-recetas.css";
 
-import { Component } from "react";
+import { getRecipesRequest } from "../../api/api.js";
 import NavBar from "../../components/NavBar";
+import RecipeCardUser from "../../components/RecipeCardUser";
+import { useRecipes } from "../../context/RecipeProvides";
 
 const cookies = new Cookies();
 
-class User extends Component {
-	cerrarSesion = () => {
+function User() {
+	const [_id, set_id] = useState(cookies.get("_id"));
+	const [username, setUsername] = useState(cookies.get("username"));
+	const [full_name, setFull_name] = useState(cookies.get("full_name"));
+	const [email, setEmail] = useState(cookies.get("email"));
+	// const [recipes, setRecipes] = useState([]);
+
+	const { recipes, loadRecipes } = useRecipes();
+	useEffect(() => {
+		if (!cookies.get("username")) {
+			window.location.href = "./login";
+		}
+
+		loadRecipes(cookies.get("username"));
+	}, []);
+
+	const cerrarSesion = () => {
 		cookies.remove("_id", { path: "/" });
 		cookies.remove("username", { path: "/" });
 		cookies.remove("full_name", { path: "/" });
@@ -18,33 +34,21 @@ class User extends Component {
 		window.location.href = "./login";
 	};
 
-	componentDidMount = () => {
-		if (!cookies.get("username")) {
-			window.location.href = "./login";
-		}
-	};
-
-	render() {
-		const usuario = {
-			_id: cookies.get("_id"),
-			username: cookies.get("username"),
-			full_name: cookies.get("full_name"),
-			email: cookies.get("email"),
-		};
-
-		return (
-			<div>
-				<NavBar
-					fullname={usuario.full_name}
-					darclick={this.cerrarSesion}
-				></NavBar>
-				{/* //* DASHBOARD */}
-				<div className="grid place-items-center mt-10">
-					<h1 className="text-4xl font-bold">Mis Recetas</h1>
-				</div>
+	return (
+		<div className="bg-white">
+			<NavBar fullname={full_name} darclick={cerrarSesion}></NavBar>
+			{/* //* DASHBOARD */}
+			<div className="grid place-items-center bg-white">
+				<h1 className="text-4xl font-bold mt-10 mb-3">Mis Recetas</h1>
 			</div>
-		);
-	}
+
+			<div className="md:container md:mx-auto p-2 recipes-container grid grid-cols-4 gap-4">
+				{recipes.map((recipe) => (
+					<RecipeCardUser recipe={recipe} key={recipe._id} />
+				))}
+			</div>
+		</div>
+	);
 }
 
 export default User;
