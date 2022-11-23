@@ -26,7 +26,8 @@ function RecipeCardUser({ recipe }) {
 				>
 					Borrar
 				</button>
-				<button className="btn btn-primary">Actualizar</button>
+				{/* TODO}
+				{/* <button className="btn btn-primary">Actualizar</button> */}
 			</div>
 		</div>
 	);

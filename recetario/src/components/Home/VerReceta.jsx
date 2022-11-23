@@ -15,6 +15,11 @@ function VerReceta() {
 		getRecipe();
 	}, []);
 
+	const dividirIng = (ingredientes) => {
+		const array_ingredientes = ingredientes.split(" ");
+		console.log(array_ingredientes);
+	};
+
 	return (
 		<div>
 			<div className="navbar bg-base-100 sticky top-0">
@@ -40,6 +45,7 @@ function VerReceta() {
 								</span>
 							</h3>
 							<h4 className="mt-3 text-xl font-bold">Descripcion</h4>
+							{/* {dividirIng(recipe.ingredients)} */}
 							<p className="mt-2">{recipe.description}</p>
 
 							<div className="flex mt-4">
