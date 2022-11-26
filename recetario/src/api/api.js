@@ -11,5 +11,5 @@ export const getAllRecipesRequest = async () => {
 };
 
 export const getRecipeByName = async (palabra) => {
-	return await axios.get(HOST_NAME + "all-recipes/", { palabra: palabra });
+	return await axios.get(HOST_NAME + "search-recipes/" + palabra);
 };

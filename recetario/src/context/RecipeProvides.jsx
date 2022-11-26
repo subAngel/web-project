@@ -16,13 +16,14 @@ export const RecipesContextProvider = ({ children }) => {
 
 	async function loadRecipes(username) {
 		const response = await getRecipesRequest(username);
-		console.log(response.data);
+		// console.log(response.data);
 		setRecipes(response.data);
 	}
 
 	async function getRecipesByName(palabra) {
 		const response = await getRecipeByName(palabra);
-		console.log(response.data);
+		// console.log(response.data);
+		setRecipes(response.data);
 	}
 
 	const createRecipe = async (username, formData) => {

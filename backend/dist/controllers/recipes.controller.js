@@ -73,7 +73,7 @@ const updateRecipe = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         const originalname = (_h = req.file) === null || _h === void 0 ? void 0 : _h.originalname;
         const { recipe_name, description, servings, cooking_time, ingredients, steps, } = req.body;
         const { id } = req.params;
-        const newRecipe = ({
+        const newRecipe = {
             recipe_name,
             description,
             servings,
@@ -84,7 +84,7 @@ const updateRecipe = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             path,
             mimetype,
             originalname,
-        });
+        };
         console.log(newRecipe);
         console.log(typeof id, id);
         // await Recipe.updateOne({ _id:  }, newRecipe);
@@ -113,8 +113,8 @@ const getAllRecipes = (req, res) => __awaiter(void 0, void 0, void 0, function* 
 exports.getAllRecipes = getAllRecipes;
 const searchRecipes = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { palabra } = req.body;
-        const encontradas = yield recipes_1.default.find({ $text: { $search: palabra } });
+        const { word } = req.params;
+        const encontradas = yield recipes_1.default.find({ $text: { $search: word } });
         return res.json(encontradas);
     }
     catch (error) {

@@ -10,6 +10,7 @@ router.put("/your-recipes/:id", recipeCtrl.updateRecipe);
 router.delete("/your-recipes/:id", recipeCtrl.deleteRecipe);
 // TODO arreglar este get
 router.get("/recipe/:id", recipeCtrl.getRecipe);
+router.get("/search-recipes/:word", recipeCtrl.searchRecipes);
 // router.get("/all-recipes", getAllRecipes);
 
 export default router;

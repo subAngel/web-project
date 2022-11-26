@@ -72,7 +72,7 @@ export const updateRecipe = async (req: Request, res: Response) => {
 			steps,
 		} = req.body;
 		const { id } = req.params;
-		const newRecipe = ({
+		const newRecipe = {
 			recipe_name,
 			description,
 			servings,
@@ -83,12 +83,12 @@ export const updateRecipe = async (req: Request, res: Response) => {
 			path,
 			mimetype,
 			originalname,
-		});
+		};
 		console.log(newRecipe);
 		console.log(typeof id, id);
 		// await Recipe.updateOne({ _id:  }, newRecipe);
 		// await Recipe.updateOne({"_id" : id }, newRecipe);
-		await Recipe.findByIdAndUpdate({ _id: id }, newRecipe)
+		await Recipe.findByIdAndUpdate({ _id: id }, newRecipe);
 		return res.status(201).send("Receta actualizada");
 	} catch (error) {
 		console.log(error);
@@ -98,9 +98,8 @@ export const updateRecipe = async (req: Request, res: Response) => {
 
 export const deleteRecipe = async (req: Request, res: Response) => {
 	const recetaDel = await Recipe.findByIdAndRemove(req.params.id);
-	if(!recetaDel)
-		return res.status(204).json();
-	return res.json({ msg: "recipe deleted", receta: recetaDel});
+	if (!recetaDel) return res.status(204).json();
+	return res.json({ msg: "recipe deleted", receta: recetaDel });
 };
 
 // TODO mostrar todas las recetas
@@ -111,8 +110,8 @@ export const getAllRecipes = async (req: Request, res: Response) => {
 
 export const searchRecipes = async (req: Request, res: Response) => {
 	try {
-		const { palabra } = req.body;
-		const encontradas = await Recipe.find({ $text: { $search: palabra } });
+		const { word } = req.params;
+		const encontradas = await Recipe.find({ $text: { $search: word } });
 		return res.json(encontradas);
 	} catch (error) {
 		return res.send("No se encontraron recetas con este nombre");
