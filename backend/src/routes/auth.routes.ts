@@ -1,18 +1,12 @@
 import { Router } from "express";
-import {
-	logIn,
-	signUp,
-	getUsuarios,
-	getUsuario,
-	createUser,
-} from "../controllers/user.controller";
+import * as authCtrl from "../controllers/user.controller";
 
 const router = Router();
 
-router.post("/signup", signUp);
-router.post("/create-user/:full_name/:username/:email/:password", createUser);
-router.post("/login", logIn);
-router.get("/users", getUsuarios);
-router.get("/user/:username", getUsuario);
+router.post("/signup", authCtrl.signUp);
+router.post("/create-user/:full_name/:username/:email/:password", authCtrl.createUser);
+router.post("/login", authCtrl.logIn);
+router.get("/users", authCtrl.getUsuarios);
+router.get("/user/:username", authCtrl.getUsuario);
 
 export default router;

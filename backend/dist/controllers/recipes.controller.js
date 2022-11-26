@@ -58,7 +58,6 @@ const createRecipe = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         console.log(recipe);
         yield recipe.save();
         return res.status(201).send("Receta guardada");
-        // return res.status(201);
     }
     catch (error) {
         console.log(error);
@@ -74,7 +73,7 @@ const updateRecipe = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         const originalname = (_h = req.file) === null || _h === void 0 ? void 0 : _h.originalname;
         const { recipe_name, description, servings, cooking_time, ingredients, steps, } = req.body;
         const { id } = req.params;
-        const newRecipe = new recipes_1.default({
+        const newRecipe = ({
             recipe_name,
             description,
             servings,
@@ -87,9 +86,10 @@ const updateRecipe = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             originalname,
         });
         console.log(newRecipe);
-        console.log(typeof id);
+        console.log(typeof id, id);
         // await Recipe.updateOne({ _id:  }, newRecipe);
-        yield recipes_1.default.updateOne({ _id: id }, newRecipe);
+        // await Recipe.updateOne({"_id" : id }, newRecipe);
+        yield recipes_1.default.findByIdAndUpdate({ _id: id }, newRecipe);
         return res.status(201).send("Receta actualizada");
     }
     catch (error) {
@@ -99,8 +99,10 @@ const updateRecipe = (req, res) => __awaiter(void 0, void 0, void 0, function* (
 });
 exports.updateRecipe = updateRecipe;
 const deleteRecipe = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    yield recipes_1.default.findByIdAndRemove(req.params.id);
-    return res.json({ msg: "recipe deleted" });
+    const recetaDel = yield recipes_1.default.findByIdAndRemove(req.params.id);
+    if (!recetaDel)
+        return res.status(204).json();
+    return res.json({ msg: "recipe deleted", receta: recetaDel });
 });
 exports.deleteRecipe = deleteRecipe;
 // TODO mostrar todas las recetas
