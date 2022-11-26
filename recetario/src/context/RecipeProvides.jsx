@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 
 import { RecipeContext } from "./RecipeContext";
-import { getRecipesRequest } from "../api/api.js";
+import { getRecipesRequest, getRecipeByName } from "../api/api.js";
 
 export const useRecipes = () => {
 	const context = useContext(RecipeContext);
@@ -18,6 +18,11 @@ export const RecipesContextProvider = ({ children }) => {
 		const response = await getRecipesRequest(username);
 		console.log(response.data);
 		setRecipes(response.data);
+	}
+
+	async function getRecipesByName(palabra) {
+		const response = await getRecipeByName(palabra);
+		console.log(response.data);
 	}
 
 	const createRecipe = async (username, formData) => {
@@ -44,7 +49,13 @@ export const RecipesContextProvider = ({ children }) => {
 
 	return (
 		<RecipeContext.Provider
-			value={{ recipes, loadRecipes, createRecipe, deleteRecipe }}
+			value={{
+				recipes,
+				loadRecipes,
+				createRecipe,
+				deleteRecipe,
+				getRecipesByName,
+			}}
 		>
 			{children}
 		</RecipeContext.Provider>

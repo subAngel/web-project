@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllRecipes = exports.deleteRecipe = exports.updateRecipe = exports.createRecipe = exports.getRecipe = exports.getRecipes = void 0;
+exports.searchRecipes = exports.getAllRecipes = exports.deleteRecipe = exports.updateRecipe = exports.createRecipe = exports.getRecipe = exports.getRecipes = void 0;
 const recipes_1 = __importDefault(require("../models/recipes"));
 const user_1 = __importDefault(require("../models/user"));
 const getFullName = (user) => __awaiter(void 0, void 0, void 0, function* () {
@@ -109,3 +109,14 @@ const getAllRecipes = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     return res.json(recipes);
 });
 exports.getAllRecipes = getAllRecipes;
+const searchRecipes = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { palabra } = req.body;
+        const encontradas = yield recipes_1.default.find({ $text: { $search: palabra } });
+        return res.json(encontradas);
+    }
+    catch (error) {
+        return res.send("No se encontraron recetas con este nombre");
+    }
+});
+exports.searchRecipes = searchRecipes;

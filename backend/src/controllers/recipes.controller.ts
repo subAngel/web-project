@@ -105,3 +105,13 @@ export const getAllRecipes = async (req: Request, res: Response) => {
 	const recipes = await Recipe.find();
 	return res.json(recipes);
 };
+
+export const searchRecipes = async (req: Request, res: Response) => {
+	try {
+		const { palabra } = req.body;
+		const encontradas = await Recipe.find({ $text: { $search: palabra } });
+		return res.json(encontradas);
+	} catch (error) {
+		return res.send("No se encontraron recetas con este nombre");
+	}
+};

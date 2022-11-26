@@ -9,3 +9,7 @@ export const getRecipesRequest = async (user) => {
 export const getAllRecipesRequest = async () => {
 	return await axios.get(HOST_NAME + "all-recipes");
 };
+
+export const getRecipeByName = async (palabra) => {
+	return await axios.get(HOST_NAME + "all-recipes/", { palabra: palabra });
+};

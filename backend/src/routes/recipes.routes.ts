@@ -6,12 +6,14 @@ import {
 	getRecipes,
 	updateRecipe,
 	getAllRecipes,
+	searchRecipes,
 } from "../controllers/recipes.controller";
 
 const router = Router();
 
 router.get("/your-recipes/:user", getRecipes);
 router.get("/all-recipes", getAllRecipes);
+router.get("/all-recipes/search", searchRecipes);
 router.post("/your-recipes/:user", createRecipe);
 router.put("/your-recipes/:id", updateRecipe);
 router.delete("/your-recipes/:id", deleteRecipe);

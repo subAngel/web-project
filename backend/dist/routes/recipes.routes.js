@@ -5,6 +5,7 @@ const recipes_controller_1 = require("../controllers/recipes.controller");
 const router = (0, express_1.Router)();
 router.get("/your-recipes/:user", recipes_controller_1.getRecipes);
 router.get("/all-recipes", recipes_controller_1.getAllRecipes);
+router.get("/all-recipes/search", recipes_controller_1.searchRecipes);
 router.post("/your-recipes/:user", recipes_controller_1.createRecipe);
 router.put("/your-recipes/:id", recipes_controller_1.updateRecipe);
 router.delete("/your-recipes/:id", recipes_controller_1.deleteRecipe);
