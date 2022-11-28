@@ -22,7 +22,7 @@ function VerReceta() {
 
 	return (
 		<div>
-			<div className="navbar bg-base-100 sticky top-0">
+			<div className="navbar bg-base-100 sticky top-0 z-[100]">
 				<button className="btn btn-ghost normal-case text-xl">
 					<Link to="/">Inicio</Link>
 				</button>

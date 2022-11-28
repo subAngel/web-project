@@ -1,11 +1,34 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const user_controller_1 = require("../controllers/user.controller");
+const authCtrl = __importStar(require("../controllers/user.controller"));
 const router = (0, express_1.Router)();
-router.post("/signup", user_controller_1.signUp);
-router.post("/create-user/:full_name/:username/:email/:password", user_controller_1.createUser);
-router.post("/login", user_controller_1.logIn);
-router.get("/users", user_controller_1.getUsuarios);
-router.get("/user/:username", user_controller_1.getUsuario);
+router.post("/signup", authCtrl.signUp);
+router.post("/create-user/:full_name/:username/:email/:password", authCtrl.createUser);
+router.post("/login", authCtrl.logIn);
+router.get("/users", authCtrl.getUsuarios);
+router.get("/user/:username", authCtrl.getUsuario);
 exports.default = router;

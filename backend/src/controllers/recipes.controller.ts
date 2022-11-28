@@ -52,7 +52,6 @@ export const createRecipe = async (req: Request, res: Response) => {
 		console.log(recipe);
 		await recipe.save();
 		return res.status(201).send("Receta guardada");
-		// return res.status(201);
 	} catch (error) {
 		console.log(error);
 	}
@@ -73,7 +72,7 @@ export const updateRecipe = async (req: Request, res: Response) => {
 			steps,
 		} = req.body;
 		const { id } = req.params;
-		const newRecipe = new Recipe({
+		const newRecipe = {
 			recipe_name,
 			description,
 			servings,
@@ -84,24 +83,37 @@ export const updateRecipe = async (req: Request, res: Response) => {
 			path,
 			mimetype,
 			originalname,
-		});
+		};
 		console.log(newRecipe);
-		console.log(typeof id);
+		console.log(typeof id, id);
 		// await Recipe.updateOne({ _id:  }, newRecipe);
-		await Recipe.updateOne({ _id: id }, newRecipe);
+		// await Recipe.updateOne({"_id" : id }, newRecipe);
+		await Recipe.findByIdAndUpdate({ _id: id }, newRecipe);
 		return res.status(201).send("Receta actualizada");
 	} catch (error) {
 		console.log(error);
 		return res.status(500).send("Error");
 	}
 };
+
 export const deleteRecipe = async (req: Request, res: Response) => {
-	await Recipe.findByIdAndRemove(req.params.id);
-	return res.json({ msg: "recipe deleted" });
+	const recetaDel = await Recipe.findByIdAndRemove(req.params.id);
+	if (!recetaDel) return res.status(204).json();
+	return res.json({ msg: "recipe deleted", receta: recetaDel });
 };
 
 // TODO mostrar todas las recetas
 export const getAllRecipes = async (req: Request, res: Response) => {
 	const recipes = await Recipe.find();
 	return res.json(recipes);
+};
+
+export const searchRecipes = async (req: Request, res: Response) => {
+	try {
+		const { word } = req.params;
+		const encontradas = await Recipe.find({ $text: { $search: word } });
+		return res.json(encontradas);
+	} catch (error) {
+		return res.send("No se encontraron recetas con este nombre");
+	}
 };
