@@ -1,7 +1,12 @@
 import { useContext, useState } from "react";
 
 import { RecipeContext } from "./RecipeContext";
-import { getRecipesRequest, getRecipeByName } from "../api/api.js";
+import {
+	getRecipesRequest,
+	getRecipeByName,
+	getRecipeRequest,
+	updateRecipeRequest,
+} from "../api/api.js";
 
 export const useRecipes = () => {
 	const context = useContext(RecipeContext);
@@ -48,6 +53,24 @@ export const RecipesContextProvider = ({ children }) => {
 			.catch((err) => console.error(err));
 	};
 
+	const getRecipe = async (id) => {
+		try {
+			const response = await getRecipeRequest(id);
+			return response.data;
+		} catch (error) {
+			console.log("error al consultar la receta");
+		}
+	};
+
+	const updateRecipe = async (id, newFields) => {
+		try {
+			const response = await updateRecipeRequest(id, newFields);
+			console.log(response);
+		} catch (error) {
+			console.log("Error al actualizar");
+		}
+	};
+
 	return (
 		<RecipeContext.Provider
 			value={{
@@ -56,6 +79,8 @@ export const RecipesContextProvider = ({ children }) => {
 				createRecipe,
 				deleteRecipe,
 				getRecipesByName,
+				getRecipe,
+				updateRecipe,
 			}}
 		>
 			{children}

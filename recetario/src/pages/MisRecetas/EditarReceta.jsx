@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { IoMdImages } from "react-icons/io";
 import axios from "axios";
 import Cookies from "universal-cookie";
@@ -8,13 +8,17 @@ import Cookies from "universal-cookie";
 import "./form.css";
 import { useRecipes } from "../../context/RecipeProvides";
 const cookies = new Cookies();
+const API_URL = "http://localhost:4000";
 
 function CrearReceta() {
 	const username = cookies.get("username");
 	const fullname = cookies.get("full_name");
 
-	const { createRecipe } = useRecipes();
+	const { getRecipe, updateRecipe } = useRecipes();
+	const params = useParams();
+	const navigate = useNavigate();
 	// * FORM DATA
+
 	const [recipe_name, setRecipe_name] = useState("");
 	const [file, setFile] = useState(null);
 	const [descripcion, setDescripcion] = useState("");
@@ -22,6 +26,21 @@ function CrearReceta() {
 	const [tiempo, setTiempo] = useState(0);
 	const [ingredientes, setIngredientes] = useState("");
 	const [pasos, setPasos] = useState("");
+
+	useEffect(() => {
+		const loadRecipe = async () => {
+			const receta_api = await getRecipe(params.id);
+			console.log(receta_api.recipe_name);
+			setRecipe_name(receta_api.recipe_name);
+			setDescripcion(receta_api.description);
+			setFile(API_URL + receta_api.path);
+			setPorciones(receta_api.servings);
+			setTiempo(receta_api.cooking_time);
+			setIngredientes(receta_api.ingredients);
+			setPasos(receta_api.steps);
+		};
+		loadRecipe();
+	}, []);
 
 	const handleChange = (e) => {
 		if (e.target.name === "recipe_name") {
@@ -47,7 +66,7 @@ function CrearReceta() {
 		}
 	};
 
-	const handleSubmit = () => {
+	const handleSubmit = async () => {
 		if (
 			(recipe_name && descripcion && ingredientes && pasos) === "" ||
 			!file ||
@@ -65,17 +84,20 @@ function CrearReceta() {
 		formData.append("cooking_time", tiempo);
 		formData.append("ingredients", ingredientes);
 		formData.append("steps", pasos);
-		createRecipe(username, formData);
-		console.log("creando receta");
-		// TODO
+		await updateRecipe(params.id, formData);
+		navigate("/mis-recetas");
+		// console.log("Update");
 	};
 
 	return (
 		<>
 			<div className="navbar">
-				<button className="btn btn-ghost text-3xl ">
-					<Link to="/mis-recetas">Mis Recetas</Link>
-				</button>
+				<div className="navbar-start">
+					<button className="btn btn-ghost text-3xl ">
+						<Link to="/mis-recetas">Mis Recetas</Link>
+					</button>
+				</div>
+				<div className="navbar-center text-2xl font-bold">Editar Receta</div>
 			</div>
 
 			<div className="contenedor">
@@ -85,6 +107,7 @@ function CrearReceta() {
 							onChange={handleChange}
 							className="input input-lg input-ghost w-full text-3xl"
 							id="receta"
+							value={recipe_name}
 							name="recipe_name"
 							type="text"
 							placeholder="Titulo: Chilaquiles Rojos"
@@ -95,6 +118,7 @@ function CrearReceta() {
 							// handleChange={}
 							onChange={handleChange}
 							type="file"
+							src={file}
 							id="image"
 							name="image"
 							className="file-input file-input-bordered file-input-success w-full "
@@ -105,6 +129,7 @@ function CrearReceta() {
 						{/* <label htmlFor="desc">Descripcion de la receta</label> */}
 						<textarea
 							onChange={handleChange}
+							value={descripcion}
 							id="desc"
 							name="description"
 							placeholder="Descripcion de la receta"
@@ -132,6 +157,7 @@ function CrearReceta() {
 							<span className="label-text">No. Porciones</span>
 							<input
 								onChange={handleChange}
+								value={porciones}
 								type="number"
 								id="porciones"
 								className="input"
@@ -144,6 +170,7 @@ function CrearReceta() {
 							<input
 								onChange={handleChange}
 								type="number"
+								value={tiempo}
 								id="time"
 								className="input"
 								name="cooking_time"
@@ -159,6 +186,7 @@ function CrearReceta() {
 							<span className="py-2">Ingredientes</span>
 							<textarea
 								onChange={handleChange}
+								value={ingredientes}
 								id="ingredientes"
 								type="text"
 								name="ingredients"
@@ -175,6 +203,7 @@ function CrearReceta() {
 							<span className="py-2">Pasos</span>
 							<textarea
 								onChange={handleChange}
+								value={pasos}
 								type="text"
 								id="pasos"
 								name="steps"
@@ -189,7 +218,7 @@ function CrearReceta() {
 						type="button"
 						onClick={handleSubmit}
 					>
-						Crear Receta
+						Actualizar Receta
 					</button>
 				</form>
 			</div>
