@@ -6,6 +6,8 @@ const URL_RECIPE = "http://localhost:4000";
 function VerReceta() {
 	const params = useParams();
 	const [recipe, setRecipe] = useState({});
+	const [arrIng, setArrIng] = useState([]);
+	const [arrPasos, setArrPasos] = useState([]);
 	useEffect(() => {
 		async function getRecipe() {
 			const response = await axios.get(URL_RECIPE + "/recipe/" + params.id);
@@ -13,12 +15,15 @@ function VerReceta() {
 			setRecipe(response.data);
 		}
 		getRecipe();
+		console.log(recipe.ingredients);
+		const ingredientes_receta = new String(recipe.ingredients);
+		const pasos_receta = new String(recipe.steps);
+		setArrIng(ingredientes_receta.replace("\r", "").split("\n"));
+		setArrPasos(pasos_receta.replace("\r", "").split("\n"));
 	}, []);
 
-	const dividirIng = (ingredientes) => {
-		const array_ingredientes = ingredientes.split(" ");
-		console.log(array_ingredientes);
-	};
+	const ingredientesItems = arrIng.map((ing, index) => <li key={index}>{ing}</li>);
+	const pasosItems = arrPasos.map((paso, index) => <li key={index}>{paso}</li>);
 
 	return (
 		<div>
@@ -45,7 +50,6 @@ function VerReceta() {
 								</span>
 							</h3>
 							<h4 className="mt-3 text-xl font-bold">Descripcion</h4>
-							{/* {dividirIng(recipe.ingredients)} */}
 							<p className="mt-2">{recipe.description}</p>
 
 							<div className="flex mt-4">
@@ -63,11 +67,14 @@ function VerReceta() {
 							</div>
 
 							<h4 className="mt-3 text-xl font-bold">Ingredientes</h4>
-							<p className="mt-2">{recipe.ingredients}</p>
+							<ul>{ingredientesItems}</ul>
+							{/* <p className="mt-2">{recipe.ingredients}</p> */}
 
-							<h4 className="mt-3 text-xl font-bold">Elaboración</h4>
-							<p className="mt-2">{recipe.steps}</p>
-
+							<h4 className="mt-3 text-xl font-bold">
+								Pasos de laboración
+							</h4>
+							{/* <p className="mt-2">{recipe.steps}</p> */}
+							<ul>{pasosItems}</ul>
 							<button className="btn btn-warning mt-5">
 								Guardar Receta
 							</button>
