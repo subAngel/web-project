@@ -8,7 +8,7 @@ function RecipeCardUser({ recipe }) {
 	const { deleteRecipe } = useRecipes();
 	const navigate = useNavigate();
 	return (
-		<div className="card card-compact w-54 bg-base-100 shadow-xl m-8">
+		<div className="card card-normal w-54 bg-base-100 shadow-xl m-8">
 			<figure>
 				{" "}
 				<img
@@ -25,7 +25,7 @@ function RecipeCardUser({ recipe }) {
 			</p>
 			<div className="card-actions justify-end justify-center mb-4">
 				<button
-					className="btn btn-ghost bg-error border-none base-content "
+					className="btn btn-ghost hover:bg-error border-none base-content "
 					onClick={() => {
 						deleteRecipe(recipe._id);
 					}}

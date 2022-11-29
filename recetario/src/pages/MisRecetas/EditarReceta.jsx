@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { IoMdImages } from "react-icons/io";
+import { AiOutlinePlus } from "react-icons/ai";
+
 import axios from "axios";
 import Cookies from "universal-cookie";
 
@@ -26,20 +28,27 @@ function CrearReceta() {
 	const [tiempo, setTiempo] = useState(0);
 	const [ingredientes, setIngredientes] = useState("");
 	const [pasos, setPasos] = useState("");
+	const [ing_cantidad, setIng_cantidad] = useState(0);
+	const [ing_description, setIng_description] = useState("");
+	const [input_pasos, setInput_pasos] = useState("");
 
 	useEffect(() => {
-		const loadRecipe = async () => {
-			const receta_api = await getRecipe(params.id);
-			console.log(receta_api.recipe_name);
-			setRecipe_name(receta_api.recipe_name);
-			setDescripcion(receta_api.description);
-			setFile(API_URL + receta_api.path);
-			setPorciones(receta_api.servings);
-			setTiempo(receta_api.cooking_time);
-			setIngredientes(receta_api.ingredients);
-			setPasos(receta_api.steps);
-		};
-		loadRecipe();
+		if (!cookies.get("username")) {
+			window.location.href = "../../login";
+		} else {
+			const loadRecipe = async () => {
+				const receta_api = await getRecipe(params.id);
+				// console.log(receta_api.recipe_name);
+				setRecipe_name(receta_api.recipe_name);
+				setDescripcion(receta_api.description);
+				setFile(API_URL + receta_api.path);
+				setPorciones(receta_api.servings);
+				setTiempo(receta_api.cooking_time);
+				setIngredientes(receta_api.ingredients);
+				setPasos(receta_api.steps);
+			};
+			loadRecipe();
+		}
 	}, []);
 
 	const handleChange = (e) => {
@@ -64,6 +73,28 @@ function CrearReceta() {
 		if (e.target.name === "steps") {
 			setPasos(e.target.value);
 		}
+		if (e.target.name === "ing_cantidad") {
+			setIng_cantidad(e.target.value);
+		}
+		if (e.target.name === "ing_descripcion") {
+			setIng_description(e.target.value);
+		}
+		if (e.target.name === "paso_descripcion") {
+			setInput_pasos(e.target.value);
+		}
+	};
+
+	const handleIngrediente = (e) => {
+		e.preventDefault();
+		let aux = ing_cantidad + "  |  " + ing_description + "\n";
+		setIngredientes(ingredientes + aux);
+	};
+
+	const handlePaso = (e) => {
+		e.preventDefault();
+		let aux2 = input_pasos + "\n";
+		console.log(input_pasos);
+		setPasos(pasos + aux2);
 	};
 
 	const handleSubmit = async () => {
@@ -178,10 +209,36 @@ function CrearReceta() {
 							/>
 						</label>
 					</div>
-					<div>
+					<div className="w-full flex">
+						<div className="w-auto md:w-full flex justify-around">
+							<div className="my-auto mr-2">
+								<input
+									onChange={handleChange}
+									type="number"
+									name="ing_cantidad"
+									placeholder="8"
+									className="input w-28"
+								/>
+							</div>
+							<div className="my-auto mr-2">
+								<input
+									onChange={handleChange}
+									type="text"
+									name="ing_descripcion"
+									placeholder="Tazas de agua"
+									className="input w-56"
+								/>
+							</div>
+							<button
+								className="btn btn-square my-auto"
+								onClick={handleIngrediente}
+							>
+								<AiOutlinePlus />
+							</button>
+						</div>
 						<label
 							htmlFor="ingredientes"
-							className="input-group input-group-vertical text-lg pt-8"
+							className="input-group input-group-vertical text-lg  w-full"
 						>
 							<span className="py-2">Ingredientes</span>
 							<textarea
@@ -191,14 +248,34 @@ function CrearReceta() {
 								type="text"
 								name="ingredients"
 								placeholder="Ingredientes"
-								className="textarea"
+								className="textarea h-40"
 							/>
 						</label>
 					</div>
-					<div>
+					<div className="w-full flex">
+						<div className="w-auto md:w-full flex justify-around">
+							<div className="w-3/4 my-auto mr-2 justify-items-center">
+								<input
+									onChange={handleChange}
+									type="text"
+									name="paso_descripcion"
+									className="input w-full"
+									placeholder="Agregar en un tazón la harina..."
+								/>
+							</div>
+
+							<div className="w-1/4 my-auto">
+								<button
+									className="btn btn-square "
+									onClick={handlePaso}
+								>
+									<AiOutlinePlus />
+								</button>
+							</div>
+						</div>
 						<label
 							htmlFor="pasos"
-							className="input-group input-group-vertical text-lg pt-8"
+							className="input-group input-group-vertical text-lg "
 						>
 							<span className="py-2">Pasos</span>
 							<textarea
@@ -208,7 +285,7 @@ function CrearReceta() {
 								id="pasos"
 								name="steps"
 								placeholder="Pasos"
-								className="textarea"
+								className="textarea h-40"
 							/>
 						</label>
 					</div>
@@ -218,7 +295,7 @@ function CrearReceta() {
 						type="button"
 						onClick={handleSubmit}
 					>
-						Actualizar Receta
+						ar Receta
 					</button>
 				</form>
 			</div>

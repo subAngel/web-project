@@ -84,7 +84,7 @@ function SecondarySection() {
 					</h1>
 				</div>
 			) : (
-				<div className="grid grid-cols-4 gap-8">
+				<div className="grid md:grid-cols-5 gap-8 mx-auto">
 					{recipes.map((recipe) => (
 						<div
 							className="card card-compact w-60 bg-base-100 shadow-xl mx-auto"
