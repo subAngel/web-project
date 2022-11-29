@@ -13,17 +13,15 @@ function VerReceta() {
 			const response = await axios.get(URL_RECIPE + "/recipe/" + params.id);
 			console.log(response.data);
 			setRecipe(response.data);
+			const ingredientes_receta = new String(recipe.ingredients);
+			const pasos_receta = new String(recipe.steps);
+			let arr_ing = ingredientes_receta.replace("\r", "").split("\n");
+			let arr_pasos = pasos_receta.replace("\r", "").split("\n");
+			setArrIng(arr_ing.map((ing, index) => <li key={index}>{ing}</li>));
+			setArrPasos(arr_pasos.map((paso, index) => <li key={index}>{paso}</li>));
 		}
 		getRecipe();
-		console.log(recipe.ingredients);
-		const ingredientes_receta = new String(recipe.ingredients);
-		const pasos_receta = new String(recipe.steps);
-		setArrIng(ingredientes_receta.replace("\r", "").split("\n"));
-		setArrPasos(pasos_receta.replace("\r", "").split("\n"));
 	}, []);
-
-	const ingredientesItems = arrIng.map((ing, index) => <li key={index}>{ing}</li>);
-	const pasosItems = arrPasos.map((paso, index) => <li key={index}>{paso}</li>);
 
 	return (
 		<div>
@@ -67,14 +65,14 @@ function VerReceta() {
 							</div>
 
 							<h4 className="mt-3 text-xl font-bold">Ingredientes</h4>
-							<ul>{ingredientesItems}</ul>
+							<ul>{arrIng}</ul>
 							{/* <p className="mt-2">{recipe.ingredients}</p> */}
 
 							<h4 className="mt-3 text-xl font-bold">
 								Pasos de laboración
 							</h4>
 							{/* <p className="mt-2">{recipe.steps}</p> */}
-							<ul>{pasosItems}</ul>
+							<ul>{arrPasos}</ul>
 							<button className="btn btn-warning mt-5">
 								Guardar Receta
 							</button>
