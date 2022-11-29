@@ -5,6 +5,7 @@ import Nomatch from "./pages/404/Nomatch";
 import SignUpPage from "./pages/SignUp";
 import User from "./pages/MisRecetas/User";
 import CrearReceta from "./pages/MisRecetas/CrearReceta";
+import EditarReceta from "./pages/MisRecetas/EditarReceta.jsx";
 import { RecipesContextProvider } from "./context/RecipeProvides";
 import VerReceta from "./components/Home/VerReceta";
 
@@ -25,6 +26,7 @@ function App() {
 						path="/mis-recetas/nueva-receta"
 						element={<CrearReceta />}
 					/>
+					<Route path="/mis-recetas/edit/:id" element={<EditarReceta />} />
 				</Routes>
 			</BrowserRouter>
 		</RecipesContextProvider>

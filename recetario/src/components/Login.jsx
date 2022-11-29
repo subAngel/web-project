@@ -67,7 +67,7 @@ function Login() {
 				console.log(name, value);
 				setFullName(value);
 			} else {
-				notifyError("El nombre completo del usuario no debe tener numeros");
+				notifyError("El nombre completo del usuario no debe tener números");
 			}
 		}
 	}
@@ -104,7 +104,7 @@ function Login() {
 							atributo={{
 								id: "email",
 								name: "email",
-								placeholder: "Ingrese su correo electronico",
+								placeholder: "Ingrese su email",
 								type: "email",
 							}}
 							handleChange={handleChange}
@@ -115,7 +115,7 @@ function Login() {
 							atributo={{
 								id: "password",
 								name: "password",
-								placeholder: "Ingrese su contrasena",
+								placeholder: "Ingrese su contraseña",
 								type: "password",
 							}}
 							value={password}

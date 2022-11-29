@@ -34,7 +34,7 @@ const PrincipalSection = () => {
 					</p>
 					<p>
 						Inicia sesión si ya tienes una cuenta o puedes registrarte a
-						continuación para que puedas crear una receta
+						continuación para que puedas crear una receta.
 					</p>
 					<div className="flex items-center mt-6">
 						<button className="btn btn-secondary">

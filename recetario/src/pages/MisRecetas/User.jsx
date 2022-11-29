@@ -35,14 +35,14 @@ function User() {
 	};
 
 	return (
-		<div className="bg-white">
+		<div className="md:bg-white">
 			<NavBar fullname={full_name} darclick={cerrarSesion}></NavBar>
 			{/* //* DASHBOARD */}
-			<div className="grid place-items-center bg-white">
+			<div className="grid place-items-center md:bg-white">
 				<h1 className="text-4xl font-bold mt-10 mb-3">Mis Recetas</h1>
 			</div>
 
-			<div className="md:container md:mx-auto p-2 recipes-container grid grid-cols-4 gap-4">
+			<div className="md:container md:mx-auto p-2 recipes-container grid md:grid-cols-4 gap-4">
 				{recipes.map((recipe) => (
 					<RecipeCardUser recipe={recipe} key={recipe._id} />
 				))}

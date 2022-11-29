@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllRecipes = exports.deleteRecipe = exports.updateRecipe = exports.createRecipe = exports.getRecipe = exports.getRecipes = void 0;
+exports.searchRecipes = exports.getAllRecipes = exports.deleteRecipe = exports.updateRecipe = exports.createRecipe = exports.getRecipe = exports.getRecipes = void 0;
 const recipes_1 = __importDefault(require("../models/recipes"));
 const user_1 = __importDefault(require("../models/user"));
 const getFullName = (user) => __awaiter(void 0, void 0, void 0, function* () {
@@ -73,7 +73,7 @@ const updateRecipe = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         const originalname = (_h = req.file) === null || _h === void 0 ? void 0 : _h.originalname;
         const { recipe_name, description, servings, cooking_time, ingredients, steps, } = req.body;
         const { id } = req.params;
-        const newRecipe = ({
+        const newRecipe = {
             recipe_name,
             description,
             servings,
@@ -84,7 +84,7 @@ const updateRecipe = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             path,
             mimetype,
             originalname,
-        });
+        };
         console.log(newRecipe);
         console.log(typeof id, id);
         // await Recipe.updateOne({ _id:  }, newRecipe);
@@ -111,3 +111,14 @@ const getAllRecipes = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     return res.json(recipes);
 });
 exports.getAllRecipes = getAllRecipes;
+const searchRecipes = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { word } = req.params;
+        const encontradas = yield recipes_1.default.find({ $text: { $search: word } });
+        return res.json(encontradas);
+    }
+    catch (error) {
+        return res.send("No se encontraron recetas con este nombre");
+    }
+});
+exports.searchRecipes = searchRecipes;

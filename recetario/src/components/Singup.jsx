@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import Input from "./Input";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 
 const createUserURL = "http://localhost:4000/create-user";
 
@@ -53,7 +53,7 @@ function Singup() {
 			} else {
 				console.log("El nombre de usuario no debe tener espacios");
 				notifyError(
-					"El nombre de usuario no debe tener espacios ni simbolos raros"
+					"El nombre de usuario no debe tener espacios ni símbolos especiales"
 				);
 				setHasError(true);
 			}
@@ -83,7 +83,7 @@ function Singup() {
 				setFull_name(value);
 			} else {
 				setHasError(true);
-				notifyError("El nombre completo del usuario no debe tener numeros");
+				notifyError("El nombre completo del usuario no debe tener números");
 			}
 		}
 	}
@@ -144,7 +144,7 @@ function Singup() {
 					}}
 					disabled={hasError}
 				>
-					<Link to="/login">Registrarse</Link>
+					<Link to={"/login"}>Registrarse</Link>
 				</button>
 			</div>
 			<ToastContainer />
