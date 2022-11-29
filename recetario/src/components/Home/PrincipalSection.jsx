@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Link } from "react-router-dom";
 
 const PrincipalSection = () => {
@@ -51,3 +52,58 @@ const PrincipalSection = () => {
 };
 
 export default PrincipalSection;
+=======
+import { Link } from "react-router-dom";
+
+const PrincipalSection = () => {
+	return (
+		<div className="hero h-screen relative flex flex-col-reverse py-16 lg:pt-0 lg:flex-col lg:pb-0">
+			<div className="inset-y-0 top-0 right-0 z-0 w-full max-w-xl px-4 mx-auto md:px-0 lg:pr-0 lg:mb-0 lg:mx-0 lg:w-7/12 lg:max-w-full lg:absolute xl:px-0 ">
+				<svg
+					className="absolute left-0 hidden h-full text-white transform -translate-x-1/2 lg:block"
+					viewBox="0 0 100 100"
+					fill="#e8e8e8"
+					preserveAspectRatio="none slice"
+				>
+					<path d="M50 0H100L50 100H0L50 0Z" />
+				</svg>
+				<img
+					className="object-cover w-full h-56 rounded shadow-lg lg:rounded-none lg:shadow-none md:h-96 lg:h-full"
+					src="https://www.reviewbox.com.mx/wp-content/uploads/2020/01/Recetario-de-comida-saludable-4.jpg"
+					alt=""
+				/>
+			</div>
+			<div className="relative flex flex-col items-start w-full max-w-xl px-4 mx-auto md:px-0 lg:px-8 lg:max-w-screen-xl">
+				<div className="mb-16 lg:my-40 lg:max-w-lg lg:pr-5">
+					<img
+						src="https://i.pinimg.com/originals/95/f3/4e/95f34e9bc588226a8c91a1be5bbebd67.png"
+						alt="Imagen del recetario"
+						className="h-44 w-44 m-auto"
+					/>
+					<h2 className="mb-5 font-sans text-5xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none">
+						Bienvenido a tu recetario online
+					</h2>
+					<p className="pr-5 mb-5 text-base text-gray-700 md:text-lg">
+						Un lugar en el que puedes subir tus recetas para que las
+						demás personas las puedan ver.
+					</p>
+					<p>
+						Inicia sesión si ya tienes una cuenta o puedes registrarte a
+						continuación para que puedas crear una receta.
+					</p>
+					<div className="flex items-center mt-6">
+						<button className="btn btn-secondary">
+							<Link to="/login">Crea una receta</Link>
+						</button>
+						<button className="btn btn-terciary ml-20">
+							<Link to="/signup">Registrarse</Link>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
+};
+
+export default PrincipalSection;
+>>>>>>> 867e2ad0fcb069f467c4af3a1c25f24589da9f7e
