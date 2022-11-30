@@ -21,11 +21,11 @@ const recipesSchema = new mongoose_1.Schema({
         required: true,
     },
     ingredients: {
-        type: String,
+        type: Array,
         required: true,
     },
     steps: {
-        type: String,
+        type: Array,
         required: true,
     },
     filename: String,

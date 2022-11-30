@@ -11,17 +11,23 @@ function VerReceta() {
 	useEffect(() => {
 		async function getRecipe() {
 			const response = await axios.get(URL_RECIPE + "/recipe/" + params.id);
-			console.log(response.data);
-			setRecipe(response.data);
-			const ingredientes_receta = new String(recipe.ingredients);
-			const pasos_receta = new String(recipe.steps);
-			let arr_ing = ingredientes_receta.replace("\r", "").split("\n");
-			let arr_pasos = pasos_receta.replace("\r", "").split("\n");
-			setArrIng(arr_ing.map((ing, index) => <li key={index}>{ing}</li>));
-			setArrPasos(arr_pasos.map((paso, index) => <li key={index}>{paso}</li>));
+			console.log("Data", response.data);
+			await setRecipe(response.data);
 		}
 		getRecipe();
+		console.log("Receta", recipe);
+		const { ingredients, steps } = recipe;
+		console.log(ingredients, steps);
+		setArrIng(ingredients);
+		setArrPasos(steps);
+		// setArrIng(ingredients);
+		// setArrPasos(steps);
 	}, []);
+
+	// const list_ingredientes = <li>hola</li>;
+	// const list_pasos = <li>hola</li>;
+	const list_ingredientes = arrIng.map((ing, index) => <li key={index}>{ing}</li>);
+	const list_pasos = arrPasos.map((paso, index) => <li key={index}>{paso}</li>);
 
 	return (
 		<div>
@@ -65,14 +71,18 @@ function VerReceta() {
 							</div>
 
 							<h4 className="mt-3 text-xl font-bold">Ingredientes</h4>
-							<ul>{arrIng}</ul>
+							<div>
+								<ul className="pl-8">{list_ingredientes}</ul>
+							</div>
 							{/* <p className="mt-2">{recipe.ingredients}</p> */}
 
 							<h4 className="mt-3 text-xl font-bold">
 								Pasos de laboración
 							</h4>
 							{/* <p className="mt-2">{recipe.steps}</p> */}
-							<ul>{arrPasos}</ul>
+							<div>
+								<ul className="pl-8">{list_pasos}</ul>
+							</div>
 							<button className="btn btn-warning mt-5">
 								Guardar Receta
 							</button>

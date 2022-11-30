@@ -295,7 +295,7 @@ function CrearReceta() {
 						type="button"
 						onClick={handleSubmit}
 					>
-						ar Receta
+						Actualizar Receta
 					</button>
 				</form>
 			</div>
