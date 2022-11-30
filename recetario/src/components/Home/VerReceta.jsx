@@ -2,9 +2,10 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import * as htmlToImage from "html-to-image";
-import { toPng } from "html-to-image";
-// import VerPDF from "./VerPDF";
-// import { PDFViewer } from "@react-18-pdf/renderer";
+import { render } from "react-dom";
+
+var node = document.getElementById("content");
+var receta = document.getElementById("receta-body");
 
 const URL_RECIPE = "http://localhost:4000";
 function VerReceta() {
@@ -50,7 +51,7 @@ function VerReceta() {
 							src={URL_RECIPE + recipe.path}
 							className="max-w-sm rounded-lg shadow-2xl"
 						/>
-						<div>
+						<div id="receta-body">
 							<h1 className="text-5xl font-bold">
 								{recipe.recipe_name}
 							</h1>
@@ -102,6 +103,10 @@ function VerReceta() {
 					</div>
 				</div>
 			</div>
+
+			{/* <div id="content">
+				<h1>Hello world</h1>
+			</div> */}
 		</div>
 	);
 }
