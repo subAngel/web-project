@@ -1,6 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import * as htmlToImage from "html-to-image";
+import { toPng } from "html-to-image";
+// import VerPDF from "./VerPDF";
+// import { PDFViewer } from "@react-18-pdf/renderer";
 
 const URL_RECIPE = "http://localhost:4000";
 function VerReceta() {
@@ -39,7 +43,7 @@ function VerReceta() {
 					<Link to="/">Inicio</Link>
 				</button>
 			</div>
-			<div className="container mx-auto h-full p-3 ">
+			<div className="container mx-auto h-full p-3 " id="receta">
 				<div className="hero min-h-screen bg-base-200">
 					<div className="hero-content flex-col lg:flex-row">
 						<img
@@ -86,7 +90,12 @@ function VerReceta() {
 							<div>
 								<ul className="pl-8">{list_pasos}</ul>
 							</div>
-							<button className="btn btn-warning mt-5">
+							<button
+								className="btn btn-warning mt-5"
+								onClick={() => {
+									console.log("PDF");
+								}}
+							>
 								Guardar Receta
 							</button>
 						</div>
