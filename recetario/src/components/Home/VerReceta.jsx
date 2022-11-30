@@ -12,22 +12,27 @@ function VerReceta() {
 		async function getRecipe() {
 			const response = await axios.get(URL_RECIPE + "/recipe/" + params.id);
 			console.log("Data", response.data);
-			await setRecipe(response.data);
+			setRecipe(response.data);
+			setArrIng(response.data.ingredients);
+			setArrPasos(response.data.steps);
 		}
+
 		getRecipe();
-		console.log("Receta", recipe);
-		const { ingredients, steps } = recipe;
-		console.log(ingredients, steps);
-		setArrIng(ingredients);
-		setArrPasos(steps);
-		// setArrIng(ingredients);
-		// setArrPasos(steps);
+		// cargarLista();
 	}, []);
 
+	// const { ingredients, steps } = recipe;
+	// console.log(ingredients, steps);
+	// setArrIng(ingredients);
+	// setArrPasos(steps);
 	// const list_ingredientes = <li>hola</li>;
 	// const list_pasos = <li>hola</li>;
-	const list_ingredientes = arrIng.map((ing, index) => <li key={index}>{ing}</li>);
-	const list_pasos = arrPasos.map((paso, index) => <li key={index}>{paso}</li>);
+	const list_ingredientes = arrIng.map((ing, index) => (
+		<li key={index}>{ing.replace(",", "").replace(",", "")}</li>
+	));
+	const list_pasos = arrPasos.map((paso, index) => (
+		<li key={index}>{paso.replace(",", "").replace(",", "")}</li>
+	));
 
 	return (
 		<div>
