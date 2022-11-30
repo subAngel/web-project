@@ -21,17 +21,11 @@ function VerReceta() {
 		// cargarLista();
 	}, []);
 
-	// const { ingredients, steps } = recipe;
-	// console.log(ingredients, steps);
-	// setArrIng(ingredients);
-	// setArrPasos(steps);
-	// const list_ingredientes = <li>hola</li>;
-	// const list_pasos = <li>hola</li>;
 	const list_ingredientes = arrIng.map((ing, index) => (
-		<li key={index}>{ing.replace(",", "").replace(",", "")}</li>
+		<li key={index}>{ing.replace(/,/g, "").replace(",", "")}</li>
 	));
 	const list_pasos = arrPasos.map((paso, index) => (
-		<li key={index}>{paso.replace(",", "").replace(",", "")}</li>
+		<li key={index}>{paso.replace(/,/g, "").replace(",", "")}</li>
 	));
 
 	return (

@@ -31,6 +31,8 @@ function CrearReceta() {
 	const [ing_cantidad, setIng_cantidad] = useState(0);
 	const [ing_description, setIng_description] = useState("");
 	const [input_pasos, setInput_pasos] = useState("");
+	// banderas
+	const [fileExist, setFileExist] = useState(false);
 
 	useEffect(() => {
 		if (!cookies.get("username")) {
@@ -57,6 +59,7 @@ function CrearReceta() {
 		}
 		if (e.target.name === "image") {
 			setFile(e.target.files[0]);
+			setFileExist(true);
 		}
 		if (e.target.name === "description") {
 			setDescripcion(e.target.value);
@@ -149,7 +152,6 @@ function CrearReceta() {
 							// handleChange={}
 							onChange={handleChange}
 							type="file"
-							src={file}
 							id="image"
 							name="image"
 							className="file-input file-input-bordered file-input-success w-full "
@@ -291,7 +293,11 @@ function CrearReceta() {
 					</div>
 
 					<button
-						className="btn btn-primary w-full"
+						className={
+							fileExist
+								? "btn btn-primary w-full"
+								: "btn btn-primary w-full btn-disabled"
+						}
 						type="button"
 						onClick={handleSubmit}
 					>
