@@ -45,3 +45,9 @@ Para iniciar el frontend con react
 ```
 npm run dev
 ```
+
+Para crear el indice y hacer las busquedas:
+
+```
+db.recipes.createIndex({recipe_name: "text", description: "text"})
+```

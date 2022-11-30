@@ -22,10 +22,14 @@ function VerReceta() {
 	}, []);
 
 	const list_ingredientes = arrIng.map((ing, index) => (
-		<li key={index}>{ing.replace(/,/g, "").replace(",", "")}</li>
+		<li key={index} className="list-disc last:hidden">
+			{ing.replace(/,/g, "").replace(",", "")}
+		</li>
 	));
 	const list_pasos = arrPasos.map((paso, index) => (
-		<li key={index}>{paso.replace(/,/g, "").replace(",", "")}</li>
+		<li key={index} className="list-decimal last:hidden">
+			{paso.replace(/,/g, "").replace(",", "")}
+		</li>
 	));
 
 	return (
