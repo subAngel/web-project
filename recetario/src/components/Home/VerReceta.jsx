@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import * as htmlToImage from "html-to-image";
 import { render } from "react-dom";
+import * as pdf from "html-pdf";
 
 var node = document.getElementById("content");
 var receta = document.getElementById("receta-body");
@@ -94,7 +95,21 @@ function VerReceta() {
 							<button
 								className="btn btn-warning mt-5"
 								onClick={() => {
-									console.log("PDF");
+									pdf.create(receta).toFile(
+										"Salida.pdf",
+										(err) => {
+											if (err) {
+												console.log(
+													"Error creando pdf",
+													err
+												);
+											} else {
+												console.log(
+													"Pdf creado correctamente"
+												);
+											}
+										}
+									);
 								}}
 							>
 								Guardar Receta

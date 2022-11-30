@@ -112,3 +112,7 @@ export const searchRecipes = async (req: Request, res: Response) => {
 		return res.send("No se encontraron recetas con este nombre");
 	}
 };
+
+export const cargarPDF = async (req: Request, res: Response) => {
+	const content = ``;
+};

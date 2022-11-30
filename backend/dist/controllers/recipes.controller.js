@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.searchRecipes = exports.getAllRecipes = exports.deleteRecipe = exports.updateRecipe = exports.createRecipe = exports.getRecipe = exports.getRecipes = void 0;
+exports.cargarPDF = exports.searchRecipes = exports.getAllRecipes = exports.deleteRecipe = exports.updateRecipe = exports.createRecipe = exports.getRecipe = exports.getRecipes = void 0;
 const recipes_1 = __importDefault(require("../models/recipes"));
 const user_1 = __importDefault(require("../models/user"));
 const getFullName = (user) => __awaiter(void 0, void 0, void 0, function* () {
@@ -130,3 +130,7 @@ const searchRecipes = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.searchRecipes = searchRecipes;
+const cargarPDF = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const content = ``;
+});
+exports.cargarPDF = cargarPDF;

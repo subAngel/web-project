@@ -34,7 +34,7 @@ function SecondarySection() {
 	};
 
 	return (
-		<div className="p-20 container mx-auto px-4">
+		<div className="p-20 container mx-auto px-4 w-9/12">
 			<div className="container mx-auto  m-5 relative">
 				<div className="flex items-center justify-center sticky top-0">
 					<button
@@ -84,7 +84,7 @@ function SecondarySection() {
 					</h1>
 				</div>
 			) : (
-				<div className="grid md:grid-cols-5 gap-8 mx-auto">
+				<div className="grid md:grid-cols-4 gap-8 mx-auto ">
 					{recipes.map((recipe) => (
 						<div
 							className="card card-compact w-60 bg-base-100 shadow-xl mx-auto"

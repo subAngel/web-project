@@ -8,11 +8,11 @@ function RecipeCardUser({ recipe }) {
 	const { deleteRecipe } = useRecipes();
 	const navigate = useNavigate();
 	return (
-		<div className="card card-normal w-54 bg-base-100 shadow-xl m-8">
-			<figure>
+		<div className="card card-normal w-54 bg-base-100 shadow-xl ">
+			<figure className="w-54">
 				{" "}
 				<img
-					className="w-54"
+					className="w-min md:w-full"
 					src={API_URL + recipe.path}
 					alt={recipe.recipe_name}
 				/>
