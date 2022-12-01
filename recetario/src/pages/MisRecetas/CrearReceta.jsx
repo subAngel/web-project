@@ -103,18 +103,21 @@ function CrearReceta() {
 
 	return (
 		<>
-			<div className="navbar">
-				<button className="btn btn-ghost text-3xl ">
-					<Link to="/mis-recetas">Mis Recetas</Link>
-				</button>
+			<div className="navbar bg-primary px-4 ">
+				<div className="navbar-start">
+					<button className="btn btn-ghost text-3xl my-3 ">
+						<Link to="/mis-recetas">Mis Recetas</Link>
+					</button>
+				</div>
+				<div className="navbar-center text-2xl font-bold">Crear Receta</div>
 			</div>
 
-			<div className="contenedor">
+			<div className="contenedor drop-shadow-xl ">
 				<form className="formulario">
 					<div className="w-full">
 						<input
 							onChange={handleChange}
-							className="input input-lg input-ghost w-full text-3xl"
+							className="input input-lg w-full text-3xl"
 							id="receta"
 							name="recipe_name"
 							type="text"
@@ -128,7 +131,7 @@ function CrearReceta() {
 							type="file"
 							id="image"
 							name="image"
-							className="file-input file-input-bordered file-input-success w-full "
+							className="file-input file-input-bordered file-input-secondary w-full "
 							// value={file}
 						/>
 					</div>
@@ -206,7 +209,7 @@ function CrearReceta() {
 								className="btn btn-square my-auto"
 								onClick={handleIngrediente}
 							>
-								<AiOutlinePlus />
+								<AiOutlinePlus className="text-xl " />
 							</button>
 						</div>
 						<label
@@ -242,7 +245,7 @@ function CrearReceta() {
 									className="btn btn-square "
 									onClick={handlePaso}
 								>
-									<AiOutlinePlus />
+									<AiOutlinePlus className="text-xl " />
 								</button>
 							</div>
 						</div>

@@ -125,9 +125,9 @@ function CrearReceta() {
 
 	return (
 		<>
-			<div className="navbar">
+			<div className="navbar bg-primary px-4 ">
 				<div className="navbar-start">
-					<button className="btn btn-ghost text-3xl ">
+					<button className="btn btn-ghost text-3xl my-3 ">
 						<Link to="/mis-recetas">Mis Recetas</Link>
 					</button>
 				</div>
@@ -154,7 +154,7 @@ function CrearReceta() {
 							type="file"
 							id="image"
 							name="image"
-							className="file-input file-input-bordered file-input-success w-full "
+							className="file-input file-input-bordered file-input-secondary w-full "
 							// value={file}
 						/>
 					</div>
@@ -235,7 +235,7 @@ function CrearReceta() {
 								className="btn btn-square my-auto"
 								onClick={handleIngrediente}
 							>
-								<AiOutlinePlus />
+								<AiOutlinePlus className="text-xl " />
 							</button>
 						</div>
 						<label
@@ -271,7 +271,7 @@ function CrearReceta() {
 									className="btn btn-square "
 									onClick={handlePaso}
 								>
-									<AiOutlinePlus />
+									<AiOutlinePlus className="text-xl " />
 								</button>
 							</div>
 						</div>

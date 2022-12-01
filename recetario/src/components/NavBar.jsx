@@ -5,7 +5,7 @@ import { GiChefToque } from "react-icons/gi";
 
 function NavBar({ darclick, fullname }) {
 	return (
-		<nav className="w-full justify-center px-4">
+		<nav className="w-full justify-center px-4 bg-primary">
 			<div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
 				<div>
 					<div className="flex items-center justify-between py-3 md:py-5 md:block">
@@ -23,7 +23,7 @@ function NavBar({ darclick, fullname }) {
 								<h2 className="text-xl mr-44">{fullname}</h2>
 							</li>
 							<li>
-								<button className=" btn btn-active btn-accent text-lg">
+								<button className=" btn btn-active btn-secondary text-lg ">
 									<Link
 										to="/mis-recetas/nueva-receta"
 										className="bg-active"
@@ -42,7 +42,7 @@ function NavBar({ darclick, fullname }) {
 					>
 						<button
 							onClick={() => darclick()}
-							className="btn btn-warning"
+							className="btn btn-neutral"
 						>
 							<ImExit />
 						</button>

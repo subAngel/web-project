@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineSearch, AiOutlineClear } from "react-icons/ai";
 import { getAllRecipesRequest, getRecipeByName } from "../../api/api.js";
+import "../../pages/MisRecetas/particles.scss";
 
 const API_URL = "http://localhost:4000";
 function SecondarySection() {

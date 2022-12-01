@@ -89,7 +89,7 @@ function Singup() {
 	}
 
 	return (
-		<form className="mt-8 space-y-11 form-control">
+		<form className="mt-8 space-y-11 form-control bg-base-300">
 			<div className="px-4 mx-auto w-80 ">
 				<Input
 					handleChange={handleChange}
