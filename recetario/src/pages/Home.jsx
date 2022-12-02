@@ -10,7 +10,7 @@ function Home() {
 				<PrincipalSection />
 			</section>
 			{/* // * TODO mostrar las recetas de la api */}
-			<section>
+			<section className=" bg-base-200">
 				<SecondarySection />
 			</section>
 		</>

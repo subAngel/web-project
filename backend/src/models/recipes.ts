@@ -9,8 +9,8 @@ export interface IRecipe extends Document {
 	fullname_user: string;
 	servings: number;
 	cooking_time: number;
-	ingredients: string;
-	steps: string;
+	ingredients: Array<String>;
+	steps: Array<String>;
 	filename: String;
 	path: String;
 	created_at: Date;
@@ -38,11 +38,11 @@ const recipesSchema = new Schema({
 		required: true,
 	},
 	ingredients: {
-		type: String,
+		type: Array,
 		required: true,
 	},
 	steps: {
-		type: String,
+		type: Array,
 		required: true,
 	},
 	filename: String,

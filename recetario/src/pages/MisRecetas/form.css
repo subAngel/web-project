@@ -7,7 +7,7 @@
 }
 
 body {
-	background: #e8e8e8;
+	/* background: #e8e8e8; */
 	font-family: "Open Sans", sans-serif;
 }
 
@@ -21,10 +21,12 @@ body {
 .formulario {
 	min-width: 1000px;
 	margin-top: 50px;
-	background: #fff;
+	/* background: #fff; */
 	border-radius: 5px;
 	padding: 20px;
-	box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+	border-radius: 45px;
+	background: #e0e0e0;
+	box-shadow: 32px 32px 60px #a4a4a4, -32px -32px 60px #ffffff;
 }
 
 .formulario > div {

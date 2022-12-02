@@ -24,15 +24,12 @@ export const createRecipe = async (req: Request, res: Response) => {
 		const path = "/img/uploads/" + req.file?.filename;
 		const mimetype = req.file?.mimetype;
 		const originalname = req.file?.originalname;
-		const {
-			recipe_name,
-			description,
-			fullname_user,
-			servings,
-			cooking_time,
-			ingredients,
-			steps,
-		} = req.body;
+		const { recipe_name, description, fullname_user, servings, cooking_time } =
+			req.body;
+		const texto_ingrediente = req.body.ingredients;
+		const arr_ingredientes = texto_ingrediente.split("\n");
+		const texto_pasos = req.body.steps;
+		const arr_pasos = texto_pasos.split("\n");
 		const { user } = req.params;
 
 		const recipe = new Recipe({
@@ -42,8 +39,8 @@ export const createRecipe = async (req: Request, res: Response) => {
 			fullname_user,
 			servings,
 			cooking_time,
-			ingredients,
-			steps,
+			ingredients: arr_ingredientes,
+			steps: arr_pasos,
 			filename,
 			path,
 			mimetype,
@@ -63,22 +60,20 @@ export const updateRecipe = async (req: Request, res: Response) => {
 		const path = "/img/uploads/" + req.file?.filename;
 		const mimetype = req.file?.mimetype;
 		const originalname = req.file?.originalname;
-		const {
-			recipe_name,
-			description,
-			servings,
-			cooking_time,
-			ingredients,
-			steps,
-		} = req.body;
+		const { recipe_name, description, servings, cooking_time } = req.body;
+		const texto_ingrediente = req.body.ingredients;
+		const arr_ingredientes = texto_ingrediente.replace(/,/g, "").split("\n");
+		const texto_pasos = req.body.steps;
+		const arr_pasos = texto_pasos.replace(/,/g, "").split("\n");
+
 		const { id } = req.params;
 		const newRecipe = {
 			recipe_name,
 			description,
 			servings,
 			cooking_time,
-			ingredients,
-			steps,
+			ingredients: arr_ingredientes,
+			steps: arr_pasos,
 			filename,
 			path,
 			mimetype,
@@ -116,4 +111,8 @@ export const searchRecipes = async (req: Request, res: Response) => {
 	} catch (error) {
 		return res.send("No se encontraron recetas con este nombre");
 	}
+};
+
+export const cargarPDF = async (req: Request, res: Response) => {
+	const content = ``;
 };

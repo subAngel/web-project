@@ -1,16 +1,17 @@
 import { Link } from "react-router-dom";
+import "../../pages/MisRecetas/particles.scss";
 
 const PrincipalSection = () => {
 	return (
-		<div className="hero h-screen relative flex flex-col-reverse py-16 lg:pt-0 lg:flex-col lg:pb-0">
-			<div className="inset-y-0 top-0 right-0 z-0 w-full max-w-xl px-4 mx-auto md:px-0 lg:pr-0 lg:mb-0 lg:mx-0 lg:w-7/12 lg:max-w-full lg:absolute xl:px-0 ">
+		<div className="hero h-screen relative flex flex-col-reverse py-16 lg:pt-0 lg:flex-col lg:pb-0  bg-secondary">
+			<div className="inset-y-0 top-0 right-0 z-0 w-full max-w-xl px-4 mx-auto md:px-0 lg:pr-0 lg:mb-0 lg:mx-0 lg:w-7/12 lg:max-w-full lg:absolute xl:px-0 fill-secondary">
 				<svg
-					className="absolute left-0 hidden h-full text-white transform -translate-x-1/2 lg:block"
+					className="absolute left-0 hidden h-full text-white transform -translate-x-1/2 lg:block bg-base fill-base"
 					viewBox="0 0 100 100"
-					fill="#e8e8e8"
+					fill=""
 					preserveAspectRatio="none slice"
 				>
-					<path d="M50 0H100L50 100H0L50 0Z" />
+					<path d="M50 0H100L50 100H0L50 0Z" className="bg-base" />
 				</svg>
 				<img
 					className="object-cover w-full h-56 rounded shadow-lg lg:rounded-none lg:shadow-none md:h-96 lg:h-full"
@@ -37,10 +38,10 @@ const PrincipalSection = () => {
 						continuación para que puedas crear una receta
 					</p>
 					<div className="flex items-center mt-6">
-						<button className="btn btn-secondary">
+						<button className="btn ">
 							<Link to="/login">Crea una receta</Link>
 						</button>
-						<button className="btn btn-terciary ml-20">
+						<button className="btn btn-accent ml-20">
 							<Link to="/signup">Registrarse</Link>
 						</button>
 					</div>

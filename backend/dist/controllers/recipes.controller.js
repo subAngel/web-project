@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.searchRecipes = exports.getAllRecipes = exports.deleteRecipe = exports.updateRecipe = exports.createRecipe = exports.getRecipe = exports.getRecipes = void 0;
+exports.cargarPDF = exports.searchRecipes = exports.getAllRecipes = exports.deleteRecipe = exports.updateRecipe = exports.createRecipe = exports.getRecipe = exports.getRecipes = void 0;
 const recipes_1 = __importDefault(require("../models/recipes"));
 const user_1 = __importDefault(require("../models/user"));
 const getFullName = (user) => __awaiter(void 0, void 0, void 0, function* () {
@@ -39,7 +39,11 @@ const createRecipe = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         const path = "/img/uploads/" + ((_b = req.file) === null || _b === void 0 ? void 0 : _b.filename);
         const mimetype = (_c = req.file) === null || _c === void 0 ? void 0 : _c.mimetype;
         const originalname = (_d = req.file) === null || _d === void 0 ? void 0 : _d.originalname;
-        const { recipe_name, description, fullname_user, servings, cooking_time, ingredients, steps, } = req.body;
+        const { recipe_name, description, fullname_user, servings, cooking_time } = req.body;
+        const texto_ingrediente = req.body.ingredients;
+        const arr_ingredientes = texto_ingrediente.split("\n");
+        const texto_pasos = req.body.steps;
+        const arr_pasos = texto_pasos.split("\n");
         const { user } = req.params;
         const recipe = new recipes_1.default({
             recipe_name,
@@ -48,8 +52,8 @@ const createRecipe = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             fullname_user,
             servings,
             cooking_time,
-            ingredients,
-            steps,
+            ingredients: arr_ingredientes,
+            steps: arr_pasos,
             filename,
             path,
             mimetype,
@@ -71,15 +75,19 @@ const updateRecipe = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         const path = "/img/uploads/" + ((_f = req.file) === null || _f === void 0 ? void 0 : _f.filename);
         const mimetype = (_g = req.file) === null || _g === void 0 ? void 0 : _g.mimetype;
         const originalname = (_h = req.file) === null || _h === void 0 ? void 0 : _h.originalname;
-        const { recipe_name, description, servings, cooking_time, ingredients, steps, } = req.body;
+        const { recipe_name, description, servings, cooking_time } = req.body;
+        const texto_ingrediente = req.body.ingredients;
+        const arr_ingredientes = texto_ingrediente.replace(/,/g, "").split("\n");
+        const texto_pasos = req.body.steps;
+        const arr_pasos = texto_pasos.replace(/,/g, "").split("\n");
         const { id } = req.params;
         const newRecipe = {
             recipe_name,
             description,
             servings,
             cooking_time,
-            ingredients,
-            steps,
+            ingredients: arr_ingredientes,
+            steps: arr_pasos,
             filename,
             path,
             mimetype,
@@ -122,3 +130,7 @@ const searchRecipes = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.searchRecipes = searchRecipes;
+const cargarPDF = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const content = ``;
+});
+exports.cargarPDF = cargarPDF;

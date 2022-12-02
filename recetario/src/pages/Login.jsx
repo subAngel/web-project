@@ -4,7 +4,7 @@ import Sesion from "../components/Sesion";
 export default function LoginPage() {
 	return (
 		<>
-			<div className="min-h-full h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+			<div className="min-h-full h-screen flex items-center justify-center bg-base-300 sm:px-6 lg:px-8 z-40">
 				<div className="max-w-md w-full space-y-8">
 					<Header
 						heading={"Inicia sesion con tu cuenta"}
